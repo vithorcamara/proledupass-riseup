@@ -1,0 +1,34 @@
+# LOG DE DESENVOLVIMENTO - PROLE DUPASS RISEUP
+Data: 16 de maio de 2026
+
+## RESUMO DAS ATIVIDADES
+
+### 1. REVISÃO E CRIAÇÃO DE COMPONENTES
+- Revisão do componente `About-app.jsx` criado pelo usuário.
+- Sugestões de melhoria em CSS (Tailwind), responsividade (uso de clamp) e padrões de exportação.
+- O componente foi movido/organizado para o diretório `src/components/landing_page/`.
+
+### 2. ARQUITETURA DA LANDING PAGE (LP)
+- Decisão estratégica de separar a Landing Page do Portal principal para permitir identidades visuais distintas.
+- Criação do layout exclusivo `src/components/landing_page/LPLayout.jsx` para isolar o Header/Footer do portal.
+- Criação da página principal `src/pages/LandingPage.jsx` para servir como container das seções da LP.
+
+### 3. GERENCIAMENTO DE ROTAS (main.jsx)
+- Integração da nova rota `/LP` no `createBrowserRouter`.
+- Correção de erros críticos de importação e caminhos de arquivos.
+- Limpeza de código duplicado e restauração da integridade do arquivo `src/main.jsx`.
+- Configuração para que `/portal/LP` renderize a nova `LandingPage`.
+
+### 4. PADRONIZAÇÃO E BOAS PRÁTICAS
+- Organização seguindo o padrão do projeto:
+  - `components/landing_page/` para blocos reutilizáveis.
+  - `pages/` para as páginas completas.
+  - `layouts/` para as estruturas de navegação.
+
+## ESTADO ATUAL DO PROJETO
+- Vite funcionando perfeitamente.
+- Landing Page estruturada e acessível em `/portal/LP`.
+- Separação clara entre o Portal (logado) e a LP (pública).
+
+---
+*Log gerado automaticamente pela Gemini CLI Agent*

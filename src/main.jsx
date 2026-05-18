@@ -17,6 +17,7 @@ import MyOportunities from './pages/MyOportunities.jsx';
 import MyCourses from './pages/MyCourses.jsx';
 import RecuperacaoSenha from './pages/RecuperacaoSenha.jsx';
 import Suport from './pages/Suport.jsx';
+import LandingPage from './pages/LandingPage.jsx';
 
 // Componentes do Admin
 import AdminLayout from './components/admin/AdminLayout.jsx';
@@ -57,6 +58,11 @@ import { AppProvider } from './contexts/AppContext.jsx';
 import { OpportunitiesProvider } from './contexts/OpportunitiesContext.jsx';
 
 import './index.css';
+
+// Landing Page
+import { About_app } from "./components/landing_page/About-app.jsx";
+import { BenefitInfo } from "./components/landing_page/Benefit-info.jsx";
+import LPLayout from './components/landing_page/LPLayout.jsx';
 
 const router = createBrowserRouter([
   {
@@ -127,6 +133,14 @@ const router = createBrowserRouter([
         ]
       }
     ]
+  },
+  {
+    path: "/LP",
+    element: <LPLayout />,
+    children: [
+      { index: true, element: <LandingPage /> },
+      { path: "About-app", element: <About_app />},
+    ],
   },
 ], { basename: "/portal" });
 
