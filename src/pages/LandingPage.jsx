@@ -1,5 +1,6 @@
 import { About_app } from "../components/landing_page/About-app";
 import { BenefitInfo } from "../components/landing_page/Benefit-info";
+import { Partners } from "../components/landing_page/Partners";
 
 /**
  * Página principal da Landing Page.
@@ -18,6 +19,9 @@ export default function LandingPage() {
 
       {/* 3. Benefit-info Section */}
       <BenefitInfo />
+
+      {/* 7. Partners Section */}
+      <Partners />
     </div>
   );
 }

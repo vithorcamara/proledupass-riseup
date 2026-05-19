@@ -1,10 +1,12 @@
+import BenefitImg from "../../assets/educational-benefits.png";
+
 export function BenefitInfo() {
   return (
     <section className="pt-4 md:pt-8 pb-16 md:pb-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="bg-sky-50 rounded-2xl p-6 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center shadow-lg">
           <img
-            src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800"
+            src={BenefitImg}
             alt="Criança estudando"
             className="w-full h-72 md:h-96 object-cover rounded-2xl shadow-md"
           />
