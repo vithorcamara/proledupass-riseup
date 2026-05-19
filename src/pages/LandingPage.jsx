@@ -13,11 +13,11 @@ export default function LandingPage() {
       <section className="bg-[#F1F5F9] py-20 text-center">
         <h1 className="text-4xl font-bold">Hero Section aqui</h1>
       </section>
-
-      {/* 2. About-app Section */}
+      
+      {/* 3. About-app Section */}
       <About_app />
 
-      {/* 3. Benefit-info Section */}
+      {/* 4. Benefit-info Section */}
       <BenefitInfo />
 
       {/* 7. Partners Section */}
