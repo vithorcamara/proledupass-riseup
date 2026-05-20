@@ -10,7 +10,7 @@ const partners = [
 
 export function Partners() {
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="pt-8 pb-16 md:pt-12 md:pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
         <h2 className="font-extrabold text-slate-800 mb-10" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>
           Empresas parceiras do <span className="text-sky-500">Prol Edupass</span>

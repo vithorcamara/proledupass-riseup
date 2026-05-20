@@ -43,8 +43,15 @@ Data: 19 de maio de 2026
 - Diagnóstico e correção de erro de carregamento no componente `Partners.jsx` causado por importação inválida de componente a partir de arquivo de imagem.
 - Instruções para implementação de animações de hover (scale e rotate) em logos utilizando Tailwind CSS e transições suaves.
 
+### 2. AJUSTES DE LAYOUT E ESPAÇAMENTO (LANDING PAGE)
+- Otimização do fluxo visual da `LandingPage` reduzindo o espaçamento excessivo entre seções.
+- Componente `OpportunitySection.jsx`: Removido o atributo `min-h-screen` que forçava uma altura mínima desproporcional e reduzido o `padding-bottom`.
+- Componente `Testimonials.jsx`: Redução dos paddings superior e inferior (`pt` e `pb`) para aproximar os depoimentos das seções adjacentes.
+- Componente `Partners.jsx`: Redução do `padding-top` para harmonizar a transição com a seção de depoimentos.
+
 ## ESTADO ATUAL DO PROJETO
 - Componentes de Landing Page (`Benefit-info.jsx` e `Partners.jsx`) devidamente corrigidos e seguindo boas práticas de importação de assets no React/Vite.
+- Layout da Landing Page mais compacto e coeso, com transições suaves entre `OpportunitySection`, `Testimonials` e `Partners`.
 - Implementação de micro-interações visuais para melhoria da UX.
 
 ---
