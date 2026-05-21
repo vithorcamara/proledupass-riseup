@@ -17,18 +17,16 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (location.hash) {
-      const id = location.hash.replace('#', '');
+      const id = location.hash.replace("#", "");
       const element = document.getElementById(id);
-      
+
       if (element) {
-        // Um pequeno delay garante que a página já renderizou antes de rolar
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     } else {
-      // Se não tiver hash (ex: clicou na logo), vai pro topo
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [location]);
 
@@ -41,28 +39,38 @@ export default function LandingPage() {
         <h1 className="text-4xl font-bold">Hero Section aqui</h1>
       </section>
 
+      {/* 2. Benefit-info Section */}
+      <section id="beneficios">
+        <BenefitInfo />
+      </section>
+
       {/* 3. About-app Section */}
       <section id="como-funciona">
         <About_app />
       </section>
 
-      {/* 4. Benefit-info Section */}
-      <section id="beneficios">
-        <BenefitInfo />
-      </section>
-
-      {/* 5. Opportunities Section */}
+      {/* 4. Opportunities Section */}
       <section id="contemplacao">
         <OpportunitySection />
       </section>
 
-      {/* 6. Testimonials Section */}
+      {/* 5. Testimonials Section */}
       <section id="depoimentos">
         <Testimonials />
       </section>
 
+      {/* 6. FAQ Section (A ser criada) */}
+      <section id="perguntas" className="bg-[#F1F5F9] py-20 text-center">
+        <h2 className="text-3xl font-bold">FAQ Section aqui</h2>
+      </section>
+
       {/* 7. Partners Section */}
       <Partners />
+
+      {/* 8. Footer Section (A ser criada) */}
+      <footer className="bg-sky-500 text-white py-6 text-center">
+        <p>&copy; Footer aqui.</p>
+      </footer>
     </div>
   );
 }

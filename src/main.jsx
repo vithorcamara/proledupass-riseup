@@ -65,6 +65,7 @@ import { About_app } from "./components/landing_page/About-app.jsx";
 import { BenefitInfo } from "./components/landing_page/Benefit-info.jsx";
 import LPLayout from "./components/landing_page/LPLayout.jsx";
 import { ContractBenefit } from "./components/landing_page/ContractBenefit.jsx";
+import { HeaderLP } from "./components/landing_page/HeaderLP.jsx";
 
 const router = createBrowserRouter(
   [

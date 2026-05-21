@@ -20,11 +20,15 @@ export function ContractBenefit({ onBack }) {
           onSubmit={handleSubmit}
           className="bg-white rounded-2xl shadow-md p-6 md:p-12"
         >
-          <h1 className="font-extrabold text-slate-800 mb-2" style={{ fontSize: "clamp(1.75rem, 3vw, 2.25rem)" }}>
+          <h1
+            className="font-extrabold text-slate-800 mb-2"
+            style={{ fontSize: "clamp(1.75rem, 3vw, 2.25rem)" }}
+          >
             Contratar Benefício
           </h1>
           <p className="text-slate-600 mb-8">
-            Preencha os dados da sua empresa para começar a transformar o futuro dos seus colaboradores.
+            Preencha os dados da sua empresa para começar a transformar o futuro
+            dos seus colaboradores.
           </p>
 
           <section className="mb-8">
@@ -32,29 +36,55 @@ export function ContractBenefit({ onBack }) {
 
             <div className="mb-5">
               <label className={labelClass}>Nome da Empresa *</label>
-              <input required type="text" placeholder="Digite o nome da empresa" className={inputClass} />
+              <input
+                required
+                type="text"
+                placeholder="Digite o nome da empresa"
+                className={inputClass}
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
               <div>
                 <label className={labelClass}>CNPJ *</label>
-                <input required type="text" placeholder="00.000.000/0000-00" className={inputClass} />
+                <input
+                  required
+                  type="text"
+                  placeholder="00.000.000/0000-00"
+                  className={inputClass}
+                />
               </div>
               <div>
                 <label className={labelClass}>Telefone *</label>
-                <input required type="tel" placeholder="(00) 00000-0000" className={inputClass} />
+                <input
+                  required
+                  type="tel"
+                  placeholder="(00) 00000-0000"
+                  className={inputClass}
+                />
               </div>
             </div>
 
             <div className="mb-5">
               <label className={labelClass}>E-mail Corporativo *</label>
-              <input required type="email" placeholder="contato@empresa.com.br" className={inputClass} />
+              <input
+                required
+                type="email"
+                placeholder="contato@empresa.com.br"
+                className={inputClass}
+              />
             </div>
 
             <div>
               <label className={labelClass}>Número de Colaboradores *</label>
-              <select required defaultValue="" className={`${inputClass} bg-sky-50`}>
-                <option value="" disabled>Selecione</option>
+              <select
+                required
+                defaultValue=""
+                className={`${inputClass} bg-sky-50`}
+              >
+                <option value="" disabled>
+                  Selecione
+                </option>
                 <option value="1-50">1 a 50</option>
                 <option value="51-200">51 a 200</option>
                 <option value="201-500">201 a 500</option>
@@ -67,34 +97,58 @@ export function ContractBenefit({ onBack }) {
           <hr className="border-slate-100 my-8" />
 
           <section className="mb-8">
-            <h2 className="font-bold text-slate-800 mb-5">Dados do Responsável</h2>
+            <h2 className="font-bold text-slate-800 mb-5">
+              Dados do Responsável
+            </h2>
 
             <div className="mb-5">
               <label className={labelClass}>Nome Completo *</label>
-              <input required type="text" placeholder="Digite seu nome completo" className={inputClass} />
+              <input
+                required
+                type="text"
+                placeholder="Digite seu nome completo"
+                className={inputClass}
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
               <div>
                 <label className={labelClass}>Cargo *</label>
-                <input required type="text" placeholder="Ex: Gerente de RH" className={inputClass} />
+                <input
+                  required
+                  type="text"
+                  placeholder="Ex: Gerente de RH"
+                  className={inputClass}
+                />
               </div>
               <div>
                 <label className={labelClass}>Telefone *</label>
-                <input required type="tel" placeholder="(00) 00000-0000" className={inputClass} />
+                <input
+                  required
+                  type="tel"
+                  placeholder="(00) 00000-0000"
+                  className={inputClass}
+                />
               </div>
             </div>
 
             <div>
               <label className={labelClass}>E-mail *</label>
-              <input required type="email" placeholder="seu.email@empresa.com.br" className={inputClass} />
+              <input
+                required
+                type="email"
+                placeholder="seu.email@empresa.com.br"
+                className={inputClass}
+              />
             </div>
           </section>
 
           <hr className="border-slate-100 my-8" />
 
           <section className="mb-8">
-            <h2 className="font-bold text-slate-800 mb-5">Informações Adicionais</h2>
+            <h2 className="font-bold text-slate-800 mb-5">
+              Informações Adicionais
+            </h2>
             <label className={labelClass}>Mensagem (opcional)</label>
             <textarea
               rows={4}
@@ -104,7 +158,9 @@ export function ContractBenefit({ onBack }) {
           </section>
 
           <p className="text-center text-slate-600 mb-6 max-w-xl mx-auto">
-            Aceito os termos de uso e política de privacidade e autorizo o contato da equipe Prol Edupass para mais informações sobre o benefício.
+            Aceito os termos de uso e política de privacidade e autorizo o
+            contato da equipe Prol Edupass para mais informações sobre o
+            benefício.
           </p>
 
           <div className="grid grid-cols-2 gap-4">
@@ -125,7 +181,9 @@ export function ContractBenefit({ onBack }) {
         </form>
 
         <aside className="bg-sky-50 rounded-2xl p-6 md:p-8 mt-8">
-          <h3 className="font-bold text-slate-800 mb-4">O que acontece depois?</h3>
+          <h3 className="font-bold text-slate-800 mb-4">
+            O que acontece depois?
+          </h3>
           <ul className="space-y-2">
             {[
               "Nossa equipe entrará em contato em até 24 horas úteis",

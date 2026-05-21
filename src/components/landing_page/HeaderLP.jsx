@@ -13,9 +13,9 @@ export function HeaderLP() {
         <div className="flex items-center h-16 w-full">
           <nav className="hidden md:flex items-center space-x-10 flex-1">
             <div className="flex-shrink-0">
-              <a href="#">
+              <Link to="/LP">
                 <img src={logo} alt="Logo" className="w-32 cursor-pointer" />
-              </a>
+              </Link>
             </div>
 
             <Link
@@ -64,9 +64,9 @@ export function HeaderLP() {
           </nav>
 
           <div className="md:hidden flex items-center w-full">
-            <a href="#">
+            <Link to="/LP">
               <img src={logo} alt="Logo" className="w-32 cursor-pointer" />
-            </a>
+            </Link>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               type="button"
