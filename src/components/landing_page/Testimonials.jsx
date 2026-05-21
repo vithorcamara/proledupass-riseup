@@ -27,7 +27,7 @@ const people = [
     text: "Com a bolsa do Prol Edupass, consegui tirar meus dois filhos da escola pública. Gratidão!",
   },
   {
-    name: "Thiago A",
+    name: "Thiago A.",
     img: thiago,
     text: "Minha empesa nos deu esse benefício e mudou nossa vida. Educação de verdade pro meu filho.",
   },
