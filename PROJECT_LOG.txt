@@ -56,3 +56,25 @@ Data: 19 de maio de 2026
 
 ---
 *Log gerado automaticamente pela Gemini CLI Agent*
+
+Data: 20 de maio de 2026
+
+## RESUMO DAS ATIVIDADES
+
+### 1. CRIAÇÃO DA SEÇÃO HERO
+- Desenvolvimento do componente hero.jsx com foco em conversão.
+- Implementação de título dinâmico, texto de apoio e botão de chamada para ação (CTA).
+- Adição de card visual com efeito de brilho (glow) e imagem de destaque.
+
+### 2. IMPLEMENTAÇÃO DO FAQ (DÚVIDAS FREQUENTES)
+- Criação do componente Faq.jsx utilizando estrutura de acordeão interativo.
+- Definição de base de conhecimento com as principais dúvidas sobre o benefício Prol EduPass.
+
+### 3. DESENVOLVIMENTO DO FOOTER (RODAPÉ)
+- Estruturação do componente Footer.jsx contendo identidade visual, links de navegação para seções da página, links de termos legais e informações de contato.
+
+## ESTADO ATUAL DO PROJETO
+- Landing Page integrada com as novas seções Hero, FAQ e Footer.
+
+---
+Log gerado automaticamente pela Gemini CLI Agent
