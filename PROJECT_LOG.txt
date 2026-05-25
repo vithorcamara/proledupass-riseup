@@ -91,4 +91,26 @@ Data: 21 de maio de 2026
 - Seção Hero totalmente funcional com vídeo de apresentação e navegação ativa.
 
 ---
-Log gerado automaticamente pela Gemini CLI Agent
+Data: 25 de maio de 2026
+
+## RESUMO DAS ATIVIDADES
+
+### 1. REESTRUTURAÇÃO DE ROTAS E NAVEGAÇÃO RAIZ
+- Alteração da configuração do Vite (`vite.config.js`) para definir o `base` como `/`, tornando a Landing Page a tela padrão na raiz do domínio.
+- Atualização do `package.json` para refletir o novo endereço da homepage.
+- Movimentação lógica do Portal para o prefixo `/portal` no `src/main.jsx`.
+
+### 2. CORREÇÃO DE LINKS E REDIRECIONAMENTOS
+- **Landing Page:** Correção de todos os links que apontavam para a rota obsoleta `/LP`. Ajustados para a raiz `/` com âncoras (ex: `/#beneficios`).
+- **Portal:** Atualização dos links no `Header.jsx` e `BolsaPage.jsx` para incluírem o prefixo `/portal/`, garantindo a navegação interna correta.
+- **Login:** Ajuste no redirecionamento pós-login em `Login.jsx` para levar usuários padrão diretamente ao `/portal`.
+- **Footer:** Correção de links quebrados e caminhos de imagens no componente `Footer.jsx` da Landing Page.
+- **Hero:** Atualização dos CTAs para os novos caminhos de contratação e login.
+
+## ESTADO ATUAL DO PROJETO
+- Landing Page definida como página inicial (`/`).
+- Portal e área logada organizados sob o caminho `/portal`.
+- Toda a navegação interna (links, botões e redirecionamentos) sincronizada com a nova arquitetura de rotas.
+
+---
+*Log gerado automaticamente pela Gemini CLI Agent*

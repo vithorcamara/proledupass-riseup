@@ -10,10 +10,10 @@ export function Footer() {
         <div className="lg:w-1/3 flex flex-col justify-between">
 
           {/* Logo */}
-          <Link to="/lp" className="group">
+          <Link to="/" className="group">
             <div className="flex items-center mb-4">
                <img
-              src="public/assets/logos/outline-white.png"
+              src="/assets/logos/outline-white.png"
               alt="logo edupass branco"
               className="h-12 w-auto"
             />
@@ -42,28 +42,28 @@ vidas e abrir portas para novas oportunidades.
             </h3>
 
             <Link
-              to="/LP#beneficios"
+              to="/#beneficios"
               className="text-sm hover:underline underline-offset-2"
             >
               Benefícios
             </Link>
 
             <Link
-              to="/LP#como-funciona"
+              to="/#como-funciona"
               className="text-sm hover:underline underline-offset-2"
             >
               Como funciona
             </Link>
 
             <Link
-              to="/LP#contemplacao"
+              to="/#contemplacao"
               className="text-sm hover:underline underline-offset-2"
             >
               Contemplação
             </Link>
 
             <Link
-              to="/LP#perguntas"
+              to="/#perguntas"
               className="text-sm hover:underline underline-offset-2"
             >
               Perguntas

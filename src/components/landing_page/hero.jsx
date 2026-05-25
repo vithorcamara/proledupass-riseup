@@ -45,7 +45,7 @@ export function Hero() {
 
         {/* Botão */}
         <Link
-          to="/LP/contract-benefit"
+          to="/contract-benefit"
           className="mt-8 w-full max-w-[350px] sm:max-w-xl bg-sky-500 text-white font-bold py-4 rounded-xl text-center hover:bg-sky-600 transition"
         >
           CONTRATAR BENEFÍCIO
@@ -55,7 +55,7 @@ export function Hero() {
         <p className="mt-4 text-sm text-slate-500">
           Já possui Benefício?{" "}
           <Link
-            to="/login"
+            to="/portal/login"
             className="text-sky-500 font-bold hover:underline"
           >
             Clique aqui

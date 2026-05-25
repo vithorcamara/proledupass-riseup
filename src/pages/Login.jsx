@@ -51,7 +51,7 @@ export default function Login() {
           } else if (roles.includes("ROLE_COMPANY")) {
             navigate("/company/dashboard");
           } else {
-            navigate("/");
+            navigate("/portal");
           }
         }, 1500);
 

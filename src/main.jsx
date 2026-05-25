@@ -71,6 +71,14 @@ const router = createBrowserRouter(
   [
     {
       path: "/",
+      element: <LPLayout />,
+      children: [
+        { index: true, element: <LandingPage /> },
+        { path: "contratar-beneficio", element: <ContractPage /> },
+      ],
+    },
+    {
+      path: "/portal",
       element: <App />,
       children: [
         { index: true, element: <HomePage /> },
@@ -153,17 +161,8 @@ const router = createBrowserRouter(
         },
       ],
     },
-    {
-      path: "/LP",
-      element: <LPLayout />,
-      children: [
-        { index: true, element: <LandingPage /> },
-        { path: "About-app", element: <About_app /> },
-        { path: "contract-benefit", element: <ContractPage /> },
-      ],
-    },
   ],
-  { basename: "/portal" },
+  { basename: "/" },
 );
 
 createRoot(document.getElementById("root")).render(

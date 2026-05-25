@@ -67,7 +67,7 @@ export default function BolsaPage() {
     return (
       <div className="min-h-[calc(100vh-128px)] flex flex-col justify-center items-center bg-slate-50 p-6 text-center">
         <p className="text-red-600 text-xl mb-4">{error}</p>
-        <Link to="/" className="btn btn-primary">Voltar para Home</Link>
+        <Link to="/portal" className="btn btn-primary">Voltar para Home</Link>
       </div>
     );
   }
@@ -75,7 +75,7 @@ export default function BolsaPage() {
     return (
       <div className="min-h-[calc(100vh-128px)] flex flex-col justify-center items-center bg-slate-50 p-6 text-center">
         <p className="text-slate-700 text-xl mb-4">Oportunidade não encontrada.</p>
-        <Link to="/" className="btn btn-primary">Voltar para Home</Link>
+        <Link to="/portal" className="btn btn-primary">Voltar para Home</Link>
       </div>
     );
   }

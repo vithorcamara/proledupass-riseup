@@ -6,7 +6,7 @@ export default function ContractPage() {
   const navigate = useNavigate();
 
   const onBack = () => {
-    navigate("/LP");
+    navigate("/");
   };
 
   return (

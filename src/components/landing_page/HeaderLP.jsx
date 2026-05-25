@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "/public/assets/logos/default.png";
 
 export function HeaderLP() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const logo = "/assets/logos/default.png";
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -13,41 +13,41 @@ export function HeaderLP() {
         <div className="flex items-center h-16 w-full">
           <nav className="hidden md:flex items-center space-x-10 flex-1">
             <div className="flex-shrink-0">
-              <Link to="/LP">
+              <Link to="/">
                 <img src={logo} alt="Logo" className="w-32 cursor-pointer" />
               </Link>
             </div>
 
             <Link
-              to="/LP#beneficios"
+              to="/#beneficios"
               className="text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] transition-colors"
             >
               Benefícios
             </Link>
 
             <Link
-              to="/LP#como-funciona"
+              to="/#como-funciona"
               className="text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] transition-colors"
             >
               Como Funciona
             </Link>
 
             <Link
-              to="/LP#contemplacao"
+              to="/#contemplacao"
               className="text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] transition-colors"
             >
               Contemplação
             </Link>
 
             <Link
-              to="/LP#depoimentos"
+              to="/#depoimentos"
               className="text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] transition-colors"
             >
               Depoimentos
             </Link>
 
             <Link
-              to="/LP#perguntas"
+              to="/#perguntas"
               className="text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] transition-colors"
             >
               Perguntas
@@ -55,7 +55,7 @@ export function HeaderLP() {
 
             <div className="flex items-center space-x-3 ml-auto">
               <Link
-                to="contract-benefit"
+                to="/contratar-beneficio"
                 className="btn text-sm bg-[#30ADE7] text-[#ffff] hover:bg-[#219ed8] rounded-[8px] px-6 py-3"
               >
                 Contratar Benefício
@@ -64,7 +64,7 @@ export function HeaderLP() {
           </nav>
 
           <div className="md:hidden flex items-center w-full">
-            <Link to="/LP">
+            <Link to="/">
               <img src={logo} alt="Logo" className="w-32 cursor-pointer" />
             </Link>
             <button
@@ -113,35 +113,35 @@ export function HeaderLP() {
         <div className="md:hidden absolute top-16 inset-x-0 bg-white shadow-lg z-40 p-2 transition transform origin-top">
           <div className="pt-2 pb-3 space-y-1">
             <Link
-              to="/LP#beneficios"
+              to="/#beneficios"
               onClick={closeMobileMenu}
               className="block px-4 py-2 text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] hover:bg-[#F0F8FC] rounded transition-colors"
             >
               Benefícios
             </Link>
             <Link
-              to="/LP#como-funciona"
+              to="/#como-funciona"
               onClick={closeMobileMenu}
               className="block px-4 py-2 text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] hover:bg-[#F0F8FC] rounded transition-colors"
             >
               Como funciona
             </Link>
             <Link
-              to="/LP#contemplacao"
+              to="/#contemplacao"
               onClick={closeMobileMenu}
               className="block px-4 py-2 text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] hover:bg-[#F0F8FC] rounded transition-colors"
             >
               Contemplação
             </Link>
             <Link
-              to="/LP#depoimentos"
+              to="/#depoimentos"
               onClick={closeMobileMenu}
               className="block px-4 py-2 text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] hover:bg-[#F0F8FC] rounded transition-colors"
             >
               Depoimentos
             </Link>
             <Link
-              to="/LP#perguntas"
+              to="/#perguntas"
               onClick={closeMobileMenu}
               className="block px-4 py-2 text-sm font-bold text-[#2F2F2F] hover:text-[#30ADE7] hover:bg-[#F0F8FC] rounded transition-colors"
             >
@@ -151,7 +151,7 @@ export function HeaderLP() {
 
           <div className="pt-4 pb-3 border-t border-slate-200 space-y-3">
             <Link
-              to="contract-benefit"
+              to="/contratar-beneficio"
               className="btn text-sm bg-[#30ADE7] text-[#ffff] hover:bg-[#219ed8] rounded-[8px] px-6 py-3 mr-4 ml-4"
             >
               Contratar Benefício
