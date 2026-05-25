@@ -180,7 +180,7 @@ export default function Header({ userLoggedIn, setUserLoggedIn }) {
 
           {/* Botão do Menu Hambúrguer (Mobile) */}
           <div className="md:hidden flex items-center w-full">
-            <Link to="/">
+            <Link to="/portal">
               <img src={logo} alt="Logo" className="w-32 cursor-pointer" />
             </Link>
             <button
