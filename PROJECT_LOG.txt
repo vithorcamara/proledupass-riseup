@@ -77,4 +77,18 @@ Data: 20 de maio de 2026
 - Landing Page integrada com as novas seções Hero, FAQ e Footer.
 
 ---
+Data: 21 de maio de 2026
+
+## RESUMO DAS ATIVIDADES
+
+### 1. REFINAMENTO E FUNCIONALIDADE DO HERO
+- Ajuste na exportação do componente `hero.jsx` para exportação nomeada, garantindo compatibilidade com o arquivo de rotas e a `LandingPage`.
+- Implementação de um player de vídeo (YouTube) responsivo integrado ao layout do Hero.
+- Correção e ativação dos links de redirecionamento para o formulário de contratação e para a página de login.
+- Melhoria na acessibilidade e estilização do CTA principal.
+
+## ESTADO ATUAL DO PROJETO
+- Seção Hero totalmente funcional com vídeo de apresentação e navegação ativa.
+
+---
 Log gerado automaticamente pela Gemini CLI Agent
