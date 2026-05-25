@@ -15,6 +15,7 @@ export function Footer() {
                <img
               src="public/assets/logos/outline-white.png"
               alt="logo edupass branco"
+              className="h-12 w-auto"
             />
             </div>
 

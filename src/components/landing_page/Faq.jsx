@@ -37,7 +37,7 @@ export function FAQ() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-white px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <section className="py-8 md:py-12 bg-white px-4 sm:px-6 lg:px-8 flex flex-col items-center">
       {/* Título da Seção */}
       <div className="max-w-3xl w-full text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
