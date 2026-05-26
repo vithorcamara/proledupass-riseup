@@ -19,12 +19,12 @@ export function About_app() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <h2 className="font-extrabold text-slate-800 mb-8 min-h-[80px]" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>
-            Porque meus colaboradores precisam do <span className="text-sky-500">Prol Edupass</span>?
+            Porque meus colaboradores precisam do <span className="text-[#30A9DE]">Prol Edupass</span>?
           </h2>
           <div className="space-y-6">
             {cards.map(({ icon: Icon, title, text }) => (
               <article key={title} className="bg-white border border-slate-100 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#30A9DE] flex items-center justify-center mb-4">
                   <Icon className="text-white w-6 h-6" />
                 </div>
                 <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
@@ -36,7 +36,7 @@ export function About_app() {
 
         <div>
           <h2 className="font-extrabold text-slate-800 mb-8 min-h-[80px]" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>
-            Para quais empresas e por que seus colaboradores precisam desses <span className="text-sky-500">benefícios</span>?
+            Para quais empresas e por que seus colaboradores precisam desses <span className="text-[#30A9DE]">benefícios</span>?
           </h2>
           <ul className="space-y-5">
             {reasons.map((r) => (

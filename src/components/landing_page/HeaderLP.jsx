@@ -56,7 +56,7 @@ export function HeaderLP() {
             <div className="flex items-center space-x-3 ml-auto">
               <Link
                 to="/contratar-beneficio"
-                className="btn text-sm bg-[#30ADE7] text-[#ffff] hover:bg-[#219ed8] rounded-[8px] px-6 py-3"
+                className="btn text-sm bg-[#30ADE7] text-[#ffff] hover:bg-[#2a8fc9] rounded-[8px] px-6 py-3"
               >
                 Contratar Benefício
               </Link>
@@ -152,7 +152,7 @@ export function HeaderLP() {
           <div className="pt-4 pb-3 border-t border-slate-200 space-y-3">
             <Link
               to="/contratar-beneficio"
-              className="btn text-sm bg-[#30ADE7] text-[#ffff] hover:bg-[#219ed8] rounded-[8px] px-6 py-3 mr-4 ml-4"
+              className="btn text-sm bg-[#30ADE7] text-[#ffff] hover:bg-[#2a8fc9] rounded-[8px] px-6 py-3 mr-4 ml-4"
             >
               Contratar Benefício
             </Link>

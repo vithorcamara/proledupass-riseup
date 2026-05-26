@@ -46,7 +46,7 @@ export function Testimonials() {
           className="font-extrabold text-slate-800 text-center mb-2"
           style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
         >
-          Palavras de quem já <span className="text-sky-500">transformou </span>
+          Palavras de quem já <span className="text-[#30A9DE]">transformou </span>
           seu futuro
         </h2>
         <p className="text-center text-slate-600 mb-8">Confira o que colaboradores dizem após conquistarem bolsas com o Prol Edupass</p>

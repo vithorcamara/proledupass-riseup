@@ -14,7 +14,7 @@ export function ContractBenefit({ onBack }) {
   const labelClass = "block font-semibold text-slate-800 mb-2";
 
   return (
-    <div className="min-h-screen bg-sky-500 py-10 md:py-16 px-4">
+    <div className="min-h-screen bg-[#30A9DE] py-10 md:py-16 px-4">
       <div className="max-w-3xl mx-auto">
         <form
           onSubmit={handleSubmit}
@@ -173,7 +173,7 @@ export function ContractBenefit({ onBack }) {
             </button>
             <button
               type="submit"
-              className="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-3 font-semibold transition shadow-sm"
+              className="bg-[#30A9DE] hover:bg-[#2a8fc9] text-white rounded-xl py-3 font-semibold transition shadow-sm"
             >
               {submitted ? "Solicitação Enviada!" : "Enviar Solicitação"}
             </button>

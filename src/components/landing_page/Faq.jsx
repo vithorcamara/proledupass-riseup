@@ -41,7 +41,7 @@ export function FAQ() {
       {/* Título da Seção */}
       <div className="max-w-3xl w-full text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
-          Dúvidas <span className="text-sky-500">Frequentes</span>
+          Dúvidas <span className="text-[#30A9DE]">Frequentes</span>
         </h2>
         <p className="text-slate-600">Esclareça os principais pontos sobre o nosso benefício</p>
       </div>
@@ -67,7 +67,7 @@ export function FAQ() {
                 {/* Ícone de Seta (Gira 180° quando aberto) */}
                 <svg
                   className={`w-5 h-5 transform transition-transform duration-300 shrink-0 ${
-                    isOpen ? 'rotate-180 text-sky-500' : 'text-slate-400'
+                    isOpen ? 'rotate-180 text-[#30A9DE]' : 'text-slate-400'
                   }`}
                   fill="none"
                   viewBox="0 0 24 24"

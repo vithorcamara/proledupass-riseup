@@ -12,7 +12,7 @@ export function BenefitInfo() {
           />
           <div>
             <h2 className="font-extrabold text-slate-800 mb-6" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>
-              Ah, mas esse <span className="text-sky-500">Benefício Educacional</span> funciona na minha empresa?
+              Ah, mas esse <span className="text-[#30A9DE]">Benefício Educacional</span> funciona na minha empresa?
             </h2>
             <p className="text-slate-600 mb-4">
                 Aqui no Prol Edupass, acreditamos que empresas fortes se constroem com oportunidades.

@@ -56,7 +56,7 @@ export function OpportunitySection() {
           <span className="text-slate-800">
             Ao ser contemplados, seus colaboradores{" "}
           </span>
-          <span className="text-sky-500">terão a oportunidade de</span>
+          <span className="text-[#30A9DE]">terão a oportunidade de</span>
         </h2>
 
         {/* Cards Grid */}
@@ -69,7 +69,7 @@ export function OpportunitySection() {
                 className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow"
               >
                 {/* Icon */}
-                <div className="bg-sky-500 rounded-full w-12 h-12 flex items-center justify-center mb-6">
+                <div className="bg-[#30A9DE] rounded-full w-12 h-12 flex items-center justify-center mb-6">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
 

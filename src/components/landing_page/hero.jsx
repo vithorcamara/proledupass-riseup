@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 export function Hero() {
   return (
-    <section className="bg-[#F1F5F9] min-h-screen flex items-center justify-center px-4 py-16">
+    <section className="bg-[#F1F5F9] min-h-screen flex items-center justify-center px-4 py-8">
       <div className="flex flex-col items-center text-center max-w-2xl w-full">
 
 {/* Título */}
 <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-center">
-  <span className="text-sky-500">
+  <span className="text-[#30A9DE]">
     Transforme
   </span>{" "}
   
@@ -46,7 +46,7 @@ export function Hero() {
         {/* Botão */}
         <Link
           to="/contratar-beneficio"
-          className="mt-8 w-full max-w-[350px] sm:max-w-xl bg-sky-500 text-white font-bold py-4 rounded-xl text-center hover:bg-sky-600 transition"
+          className="mt-8 w-full max-w-[350px] sm:max-w-xl bg-[#30A9DE] text-white font-bold py-4 rounded-xl text-center hover:bg-[#2a8fc9] transition"
         >
           CONTRATAR BENEFÍCIO
         </Link>
@@ -56,7 +56,7 @@ export function Hero() {
           Já possui Benefício?{" "}
           <Link
             to="/portal/login"
-            className="text-sky-500 font-bold hover:underline"
+            className="text-[#30A9DE] font-bold hover:underline"
           >
             Clique aqui
           </Link>

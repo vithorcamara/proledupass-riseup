@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
-    <footer className="bg-[#29aae1] text-white py-12 px-6 md:px-12">
+    <footer className="bg-[#30A9DE] text-white py-12 px-6 md:px-12">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between gap-12">
 
         {/* Lado Esquerdo */}
