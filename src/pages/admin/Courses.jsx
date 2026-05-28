@@ -27,7 +27,7 @@ function FilterableSelect({ options, value, onChange, placeholder }) {
   const wrapperRef = useRef(null);
 
   const filteredOptions = options.filter((opt) =>
-    opt.toLowerCase().includes(search.toLowerCase())
+    opt.toLowerCase().includes(search.toLowerCase()),
   );
 
   useEffect(() => {
@@ -56,7 +56,9 @@ function FilterableSelect({ options, value, onChange, placeholder }) {
       {isOpen && (
         <ul className="absolute z-10 bg-white border border-gray-200 rounded-lg mt-1 w-full max-h-48 overflow-auto shadow-lg">
           {filteredOptions.length === 0 ? (
-            <li className="px-3 py-2 text-gray-500 text-sm">Nenhum resultado</li>
+            <li className="px-3 py-2 text-gray-500 text-sm">
+              Nenhum resultado
+            </li>
           ) : (
             filteredOptions.map((opt) => (
               <li
@@ -135,7 +137,8 @@ export default function Courses() {
       const fetchedCourses = Array.isArray(res.data) ? res.data : [];
 
       const grouped = fetchedCourses.reduce((acc, course) => {
-        const instName = course.institutions?.name || "Instituição Desconhecida";
+        const instName =
+          course.institutions?.name || "Instituição Desconhecida";
         if (!acc[instName])
           acc[instName] = { id: course.institutions?.id, courses: [] };
         acc[instName].courses.push(course);
@@ -194,7 +197,7 @@ export default function Courses() {
 
   const institutionGroupNames = Object.keys(coursesByInstitution);
   const allCourses = institutionGroupNames.flatMap(
-    (name) => coursesByInstitution[name].courses
+    (name) => coursesByInstitution[name].courses,
   );
 
   const filteredCourses = allCourses.filter((c) => {
@@ -210,7 +213,9 @@ export default function Courses() {
   });
 
   const availableInstitutions = [
-    ...new Set(filteredCourses.map((c) => c.institutions?.name).filter(Boolean)),
+    ...new Set(
+      filteredCourses.map((c) => c.institutions?.name).filter(Boolean),
+    ),
   ];
   const availableCourses = [
     ...new Set(filteredCourses.map((c) => c.name).filter(Boolean)),
@@ -301,7 +306,7 @@ export default function Courses() {
       {/* Cards administrativos com informações detalhadas */}
       {availableInstitutions.map((instName) => {
         const courses = filteredCourses.filter(
-          (c) => c.institutions?.name === instName
+          (c) => c.institutions?.name === instName,
         );
         if (courses.length === 0) return null;
 

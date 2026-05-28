@@ -2,21 +2,30 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function Clients() {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/") 
-      .then(res => setClients(res.data))
+    axios
+      .get("/")
+      .then((res) => setClients(res.data))
       .catch(() => setClients([]));
   }, []);
 
-  const filtered = clients.filter((client) =>
-    client.name.toLowerCase().includes(search.toLowerCase()) ||
-    client.cpf.replace(/\D/g, "").includes(search.replace(/\D/g, ""))
+  const filtered = clients.filter(
+    (client) =>
+      client.name.toLowerCase().includes(search.toLowerCase()) ||
+      client.cpf.replace(/\D/g, "").includes(search.replace(/\D/g, "")),
   );
 
   return (
@@ -55,8 +64,12 @@ export default function Clients() {
                 <TableCell>{client.cpf}</TableCell>
                 <TableCell>{client.status ? "Ativo" : "Inativo"}</TableCell>
                 <TableCell className="text-right space-x-2">
-                  <Button size="sm" variant="outline">Editar</Button>
-                  <Button size="sm" variant="destructive">Excluir</Button>
+                  <Button size="sm" variant="outline">
+                    Editar
+                  </Button>
+                  <Button size="sm" variant="destructive">
+                    Excluir
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

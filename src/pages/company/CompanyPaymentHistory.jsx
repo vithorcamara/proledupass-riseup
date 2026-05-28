@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
 
 export default function PaymentHistoryMock() {
-
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
   const [nextMonthlyFee, setNextMonthlyFee] = useState();
@@ -26,18 +25,20 @@ export default function PaymentHistoryMock() {
         return navigate("/login");
       }
 
-      axiosInstance.get(`/customers/company/${userData.id}`)
-        .then(response => {
+      axiosInstance
+        .get(`/customers/company/${userData.id}`)
+        .then((response) => {
           const data = response.data;
           // console.log("Lista de usuários da empresa:", data);
           setCompanyCustomers(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Erro ao buscar lista de usuários:", error);
         });
 
-      axiosInstance.get(`/companies/transactions/${userData.id}`)
-        .then(response => {
+      axiosInstance
+        .get(`/companies/transactions/${userData.id}`)
+        .then((response) => {
           const data = response.data;
           console.log("Lista de transações da empresa:", data);
 
@@ -46,16 +47,22 @@ export default function PaymentHistoryMock() {
             data.pop(); // remove para verificar se está pago
 
             // status
-            if (lastTransaction.status == 'APROVADO' || lastTransaction.status == 'PAGO') {
+            if (
+              lastTransaction.status == "APROVADO" ||
+              lastTransaction.status == "PAGO"
+            ) {
               data.push(lastTransaction); // adiciona novamente para mostrar no histórico
 
               const currentMon = new Date().getMonth() + 1;
-              const transactionMon = new Date(lastTransaction.dataNotificacao).getMonth() + 1;
+              const transactionMon =
+                new Date(lastTransaction.dataNotificacao).getMonth() + 1;
 
               if (transactionMon >= currentMon) {
-                setStatusCurrentPayment('Pago');
+                setStatusCurrentPayment("Pago");
                 // proxima cobranca
-                const date = new Date((lastTransaction.dataNotificacao).replace(" ", "T"));
+                const date = new Date(
+                  lastTransaction.dataNotificacao.replace(" ", "T"),
+                );
                 const year = date.getFullYear();
                 const mon = date.getMonth();
                 const newYear = mon === 11 ? year + 1 : year;
@@ -64,34 +71,31 @@ export default function PaymentHistoryMock() {
 
                 // console.log(newDate.toLocaleDateString('pt-BR'));
 
-                setNextMonthlyFee(newDate.toLocaleDateString('pt-BR'));
+                setNextMonthlyFee(newDate.toLocaleDateString("pt-BR"));
               } else {
-                setStatusCurrentPayment('Pendente');
+                setStatusCurrentPayment("Pendente");
               }
-            } else if (lastTransaction.status == 'AGUARDANDO') {
-              setStatusCurrentPayment('Em processamento');
+            } else if (lastTransaction.status == "AGUARDANDO") {
+              setStatusCurrentPayment("Em processamento");
             } else {
-              setStatusCurrentPayment('Pendente');
+              setStatusCurrentPayment("Pendente");
             }
-
-
           } else {
-            setStatusCurrentPayment('Pendente');
+            setStatusCurrentPayment("Pendente");
           }
 
           setHistory(data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Erro ao buscar lista de transações:", error);
         });
-
     } catch (e) {
       console.error("Erro ao interpretar dados do localStorage:", e);
       setErro(e.message);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   // const gerarComprovante = (idTransacao) => {
   //   alert(`Mock: gerar comprovante para transação ${idTransacao}`);
@@ -99,7 +103,9 @@ export default function PaymentHistoryMock() {
 
   return (
     <div className="p-6 max-w-5xl mx-auto bg-white rounded-lg shadow mt-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Histórico de Pagamentos</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">
+        Histórico de Pagamentos
+      </h1>
 
       {loading && <p className="text-gray-500">Carregando...</p>}
       {erro && <p className="text-red-500">{erro}</p>}
@@ -110,8 +116,12 @@ export default function PaymentHistoryMock() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
               <div>
                 <div className="flex flex-row">
-                  <h2 className="text-lg font-semibold text-gray-700">Pagamento atual</h2>
-                  <p className="text-yellow-600 font-medium ml-4">{statusCurrentPayment}</p>
+                  <h2 className="text-lg font-semibold text-gray-700">
+                    Pagamento atual
+                  </h2>
+                  <p className="text-yellow-600 font-medium ml-4">
+                    {statusCurrentPayment}
+                  </p>
                 </div>
                 <p className="text-gray-600">
                   R$ {(companyCustomers.length * 20).toFixed(2)} reais
@@ -119,23 +129,22 @@ export default function PaymentHistoryMock() {
                     (total de {companyCustomers.length} bolsistas matriculados)
                   </span>
                 </p>
-                {
-                  statusCurrentPayment == 'Pago' && (
-                    <p className="text-gray-500 text-sm">
-                      Sua próxima cobrança será em
-                      <strong> {nextMonthlyFee}</strong>
-                    </p>
-                  )
-                }
+                {statusCurrentPayment == "Pago" && (
+                  <p className="text-gray-500 text-sm">
+                    Sua próxima cobrança será em
+                    <strong> {nextMonthlyFee}</strong>
+                  </p>
+                )}
               </div>
               <div className="mt-4 sm:mt-0">
-                {
-                  statusCurrentPayment == 'Pendente' && (
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => navigate('/company/checkout')}>Efetuar pagamento</button>
-                  )
-                }
+                {statusCurrentPayment == "Pendente" && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/company/checkout")}
+                  >
+                    Efetuar pagamento
+                  </button>
+                )}
               </div>
             </div>
           </section>
@@ -151,13 +160,15 @@ export default function PaymentHistoryMock() {
                 history.map((transacao) => (
                   <li key={transacao.id} className="py-4">
                     <div className="flex flex-col sm:flex-row justify-between">
-
                       <div>
                         <p className="text-sm text-gray-700 font-medium">
                           R$ {transacao.valor.toFixed(2)}
                         </p>
                         <p className="text-sm text-gray-500">
-                          Pago no dia {new Date(transacao.dataCobranca).toLocaleDateString()}
+                          Pago no dia{" "}
+                          {new Date(
+                            transacao.dataCobranca,
+                          ).toLocaleDateString()}
                         </p>
                         <p className="text-sm text-gray-500 capitalize">
                           {transacao.metodoPagamento.replace("_", " ")}
@@ -172,7 +183,6 @@ export default function PaymentHistoryMock() {
                           Gerar comprovante
                         </button>
                       </div> */}
-
                     </div>
                   </li>
                 ))

@@ -9,7 +9,7 @@ export default function CompanyCheckout() {
   const [message, setMessage] = useState({
     show: false,
     type: "",
-    message: ""
+    message: "",
   });
   const [loading, setLoading] = useState(false);
   const [cardData, setCardData] = useState({
@@ -17,7 +17,7 @@ export default function CompanyCheckout() {
     cvv: "",
     expirationDate: "",
     expirationYear: "",
-    holderName: ""
+    holderName: "",
   });
 
   const [billetData, setBilletData] = useState({
@@ -27,7 +27,7 @@ export default function CompanyCheckout() {
     zipcode: "",
     city: "",
     complement: "",
-    state: ""
+    state: "",
   });
 
   // const [billetData, setBilletData] = useState({
@@ -71,31 +71,32 @@ export default function CompanyCheckout() {
     try {
       switch (method) {
         case "cartao":
-          if (numberRef.current) IMask(numberRef.current, { mask: "0000 0000 0000 0000" });
+          if (numberRef.current)
+            IMask(numberRef.current, { mask: "0000 0000 0000 0000" });
           if (cvvRef.current) IMask(cvvRef.current, { mask: "000[0]" });
           if (expirationDateRef.current) {
             IMask(expirationDateRef.current, {
               mask: "MM",
               blocks: {
-                MM: { mask: IMask.MaskedRange, from: 1, to: 12 }
+                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
               },
             });
-          };
+          }
 
           if (expirationYearRef.current) {
             IMask(expirationYearRef.current, {
               mask: "YY",
               blocks: {
-                YY: { mask: IMask.MaskedRange, from: 25, to: 99 }
+                YY: { mask: IMask.MaskedRange, from: 25, to: 99 },
               },
             });
-          };
+          }
           break;
 
         case "boleto":
           if (stateRef.current) {
             const mask = IMask(stateRef.current, {
-              mask: 'aa',
+              mask: "aa",
               prepare: (str) => str.toUpperCase(),
               blocks: {
                 a: {
@@ -106,7 +107,7 @@ export default function CompanyCheckout() {
             });
 
             return () => mask.destroy();
-          };
+          }
           break;
 
         default:
@@ -125,34 +126,35 @@ export default function CompanyCheckout() {
         navigate("/login");
       }
 
-      axiosInstance.get(`/companies/monthly-fee/${userData.id}`)
-        .then(response => {
+      axiosInstance
+        .get(`/companies/monthly-fee/${userData.id}`)
+        .then((response) => {
           const data = response.data;
           console.log("Dados do usuário:", data);
           setLoggedCompany(userData.id);
           setMonthlyFee(data.monthlyFeeValue);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Erro ao buscar dados do usuário:", error);
         });
     } catch (e) {
       console.error("Erro ao interpretar dados do localStorage:", e);
     }
-  }
+  };
 
   const handleCardChange = (e) => {
     setCardData({
       ...cardData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleBilletChange = (e) => {
     setBilletData({
       ...billetData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -162,7 +164,7 @@ export default function CompanyCheckout() {
 
     try {
       if (method === "cartao") {
-        const cardNumber = (cardData.number).toString();
+        const cardNumber = cardData.number.toString();
 
         if (cardNumber.length < 16) {
           throw new Error("O número do cartão precisa conter 16 digítos.");
@@ -170,15 +172,15 @@ export default function CompanyCheckout() {
 
         // identificar bandeira do cartão
         // cartão de testes: 4485785674290087
-        const brand = await EfiPay.CreditCard
-          .setCardNumber(cardNumber)
-          .verifyCardBrand();
+        const brand =
+          await EfiPay.CreditCard.setCardNumber(cardNumber).verifyCardBrand();
 
         console.log("bandeira do cartão: ", brand);
 
         // criar token de pagamento
-        const paymentToken = await EfiPay.CreditCard
-          .setAccount("d79120393ce89a1101f3692f9428e4ee") // id da conta
+        const paymentToken = await EfiPay.CreditCard.setAccount(
+          "d79120393ce89a1101f3692f9428e4ee",
+        ) // id da conta
           .setEnvironment("sandbox") // homologação
           .setCreditCardData({
             brand: brand,
@@ -195,13 +197,13 @@ export default function CompanyCheckout() {
 
         const response = await axiosInstance.post("/payment/card", {
           company: {
-            companyId: loggedCompany
+            companyId: loggedCompany,
           },
           billing: {
             value: monthlyFee,
             installments: 1,
-            paymentToken: paymentToken.payment_token
-          }
+            paymentToken: paymentToken.payment_token,
+          },
         });
 
         const data = response.data;
@@ -213,7 +215,6 @@ export default function CompanyCheckout() {
         } else {
           setMessage({ show: true, type: "danger", message: data.message });
         }
-
       } else if (method === "boleto") {
         if (
           !billetData.street ||
@@ -224,17 +225,19 @@ export default function CompanyCheckout() {
           !billetData.state
         ) {
           // setMessage("É necessário preencher todos os campos obrigatórios!");
-          throw new Error("É necessário preencher todos os campos obrigatórios!");
+          throw new Error(
+            "É necessário preencher todos os campos obrigatórios!",
+          );
         }
 
         const response = await axiosInstance.post("/payment/billet", {
           company: {
             companyId: loggedCompany,
-            address: billetData
+            address: billetData,
           },
           billing: {
-            value: monthlyFee
-          }
+            value: monthlyFee,
+          },
         });
 
         console.log(response);
@@ -249,11 +252,11 @@ export default function CompanyCheckout() {
       } else {
         const response = await axiosInstance.post("/payment/pix", {
           company: {
-            companyId: loggedCompany
+            companyId: loggedCompany,
           },
           billing: {
-            value: monthlyFee
-          }
+            value: monthlyFee,
+          },
         });
 
         const data = response.data;
@@ -272,13 +275,14 @@ export default function CompanyCheckout() {
         setMessage({
           show: true,
           type: "danger",
-          message: "Erro não identificado ao processar pagamento. Entre em contato com o suporte."
+          message:
+            "Erro não identificado ao processar pagamento. Entre em contato com o suporte.",
         });
       }
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="p-6 max-w-2xl mx-auto bg-white rounded-lg shadow mt-10">
@@ -296,13 +300,14 @@ export default function CompanyCheckout() {
               setMessage({
                 show: false,
                 type: "",
-                message: ""
+                message: "",
               });
             }}
-            className={`px-4 py-2 rounded cursor-pointer ${method === opt
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 text-gray-700"
-              }`}
+            className={`px-4 py-2 rounded cursor-pointer ${
+              method === opt
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-700"
+            }`}
           >
             {opt === "cartao" ? "Cartão" : opt === "boleto" ? "Boleto" : "Pix"}
           </button>
@@ -311,7 +316,9 @@ export default function CompanyCheckout() {
 
       {/* Mensagem */}
       {message.show && (
-        <div className={`mb-4 p-3 rounded text-sm ${message.type == "success" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-700"}`}>
+        <div
+          className={`mb-4 p-3 rounded text-sm ${message.type == "success" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-700"}`}
+        >
           {message.message}
         </div>
       )}
@@ -321,7 +328,9 @@ export default function CompanyCheckout() {
         {method === "cartao" && (
           <>
             <div className="mb-4">
-              <label htmlFor="holderName" className="block mb-1 font-bold">Nome no cartão</label>
+              <label htmlFor="holderName" className="block mb-1 font-bold">
+                Nome no cartão
+              </label>
               <input
                 id="holderName"
                 name="holderName"
@@ -332,7 +341,9 @@ export default function CompanyCheckout() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="number" className="block mb-1 font-bold">Número do cartão</label>
+              <label htmlFor="number" className="block mb-1 font-bold">
+                Número do cartão
+              </label>
               <input
                 id="number"
                 name="number"
@@ -345,7 +356,12 @@ export default function CompanyCheckout() {
             </div>
             <div className="flex gap-4 mb-4">
               <div className="w-full">
-                <label htmlFor="expirationDate" className="block mb-1 font-bold">Mês (MM)</label>
+                <label
+                  htmlFor="expirationDate"
+                  className="block mb-1 font-bold"
+                >
+                  Mês (MM)
+                </label>
                 <input
                   id="expirationDate"
                   name="expirationDate"
@@ -357,7 +373,12 @@ export default function CompanyCheckout() {
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="expirationYear" className="block mb-1 font-bold">Ano (AA)</label>
+                <label
+                  htmlFor="expirationYear"
+                  className="block mb-1 font-bold"
+                >
+                  Ano (AA)
+                </label>
                 <input
                   id="expirationYear"
                   name="expirationYear"
@@ -369,7 +390,9 @@ export default function CompanyCheckout() {
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="cvv" className="block mb-1 font-bold">CVV</label>
+                <label htmlFor="cvv" className="block mb-1 font-bold">
+                  CVV
+                </label>
                 <input
                   id="cvv"
                   name="cvv"
@@ -382,7 +405,6 @@ export default function CompanyCheckout() {
               </div>
             </div>
           </>
-
         )}
 
         {method === "boleto" && (
@@ -390,7 +412,9 @@ export default function CompanyCheckout() {
             {!billetDownloadLink ? (
               <>
                 <div>
-                  <label htmlFor="zipcode" className="font-bold">CEP</label>
+                  <label htmlFor="zipcode" className="font-bold">
+                    CEP
+                  </label>
                   <input
                     id="zipcode"
                     name="zipcode"
@@ -402,7 +426,9 @@ export default function CompanyCheckout() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="street" className="font-bold">Nome da rua</label>
+                  <label htmlFor="street" className="font-bold">
+                    Nome da rua
+                  </label>
                   <input
                     id="street"
                     name="street"
@@ -413,7 +439,9 @@ export default function CompanyCheckout() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="number" className="font-bold">Número</label>
+                  <label htmlFor="number" className="font-bold">
+                    Número
+                  </label>
                   <input
                     id="number"
                     name="number"
@@ -425,7 +453,9 @@ export default function CompanyCheckout() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="neighborhood" className="font-bold">Bairro</label>
+                  <label htmlFor="neighborhood" className="font-bold">
+                    Bairro
+                  </label>
                   <input
                     id="neighborhood"
                     name="neighborhood"
@@ -436,7 +466,9 @@ export default function CompanyCheckout() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="city" className="font-bold">Cidade</label>
+                  <label htmlFor="city" className="font-bold">
+                    Cidade
+                  </label>
                   <input
                     id="city"
                     name="city"
@@ -447,7 +479,9 @@ export default function CompanyCheckout() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="state" className="font-bold">Estado</label>
+                  <label htmlFor="state" className="font-bold">
+                    Estado
+                  </label>
                   <input
                     id="state"
                     name="state"
@@ -459,7 +493,9 @@ export default function CompanyCheckout() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="complement" className="font-bold">Complemento <i>(opcional)</i></label>
+                  <label htmlFor="complement" className="font-bold">
+                    Complemento <i>(opcional)</i>
+                  </label>
                   <input
                     id="complement"
                     name="complement"
@@ -472,20 +508,29 @@ export default function CompanyCheckout() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-blue-600 text-white px-4 py-2 rounded font-bold cursor-pointer">
-                  {loading ? "Gerando boleto, espere um momento..." : "Gerar Boleto"}
+                  className="bg-blue-600 text-white px-4 py-2 rounded font-bold cursor-pointer"
+                >
+                  {loading
+                    ? "Gerando boleto, espere um momento..."
+                    : "Gerar Boleto"}
                 </button>
               </>
             ) : (
               <div className="flex flex-col gap-4 w-full p-4 bg-[#d7e3dc]">
                 <div>
-                  <h4 className="font-bold text-[#005520]">Boleto gerado com sucesso</h4>
-                  <p className="text-[#005520]">Estamos aguardando o seu pagamento. Clique no botão para visualizar e baixar o seu boleto.</p>
+                  <h4 className="font-bold text-[#005520]">
+                    Boleto gerado com sucesso
+                  </h4>
+                  <p className="text-[#005520]">
+                    Estamos aguardando o seu pagamento. Clique no botão para
+                    visualizar e baixar o seu boleto.
+                  </p>
                 </div>
                 <button
                   type="button"
                   className="bg-green-600 text-white px-4 py-2 rounded font-bold"
-                  onClick={() => window.open(billetDownloadLink)}>
+                  onClick={() => window.open(billetDownloadLink)}
+                >
                   Visualizar boleto
                 </button>
               </div>
@@ -497,7 +542,10 @@ export default function CompanyCheckout() {
           <>
             {!qrCodePix ? (
               <>
-                <p className="text-gray-700">Pague com Pix escaneando o QR Code gerado. É rápido, seguro e sem taxas!</p>
+                <p className="text-gray-700">
+                  Pague com Pix escaneando o QR Code gerado. É rápido, seguro e
+                  sem taxas!
+                </p>
                 <button
                   type="submit"
                   disabled={loading}
@@ -531,4 +579,4 @@ export default function CompanyCheckout() {
       </form>
     </div>
   );
-};
+}

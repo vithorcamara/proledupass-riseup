@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  // baseURL: "https://proleduca-edupass-latest.onrender.com", 
+  // baseURL: "https://proleduca-edupass-latest.onrender.com",
   // baseURL: "https://edupass-backend-production.up.railway.app",
   baseURL: "http://localhost:8080/",
 });
@@ -17,7 +17,7 @@ axiosInstance.interceptors.request.use(
   (error) => {
     console.error("Erro ao configurar requisição:", error);
     return Promise.reject(error);
-  }
+  },
 );
 
 // axiosInstance.interceptors.response.use(

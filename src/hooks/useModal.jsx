@@ -1,5 +1,5 @@
 // useModal.ts
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 export function useModal() {
   const [isOpen, setIsOpen] = useState(false);

@@ -5,24 +5,22 @@ export function Footer() {
   return (
     <footer className="bg-[#30A9DE] text-white py-12 px-6 md:px-12">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between gap-12">
-
         {/* Lado Esquerdo */}
         <div className="lg:w-1/3 flex flex-col justify-between">
-
           {/* Logo */}
           <Link to="/" className="group">
             <div className="flex items-center mb-4">
-               <img
-              src="/assets/logos/outline-white.png"
-              alt="logo edupass branco"
-              className="h-12 w-auto"
-            />
+              <img
+                src="/assets/logos/outline-white.png"
+                alt="logo edupass branco"
+                className="h-12 w-auto"
+              />
             </div>
 
             {/* Texto */}
             <p className="text-sm leading-relaxed mb-8">
-              Acreditamos que a dedicação é a chave para transformar
-vidas e abrir portas para novas oportunidades.
+              Acreditamos que a dedicação é a chave para transformar vidas e
+              abrir portas para novas oportunidades.
             </p>
           </Link>
 
@@ -34,12 +32,9 @@ vidas e abrir portas para novas oportunidades.
 
         {/* Lado Direito */}
         <div className="flex flex-col sm:flex-row gap-10 sm:gap-16 lg:gap-20">
-
           {/* Navegação */}
           <div className="flex flex-col gap-3">
-            <h3 className="font-bold text-base mb-1">
-              Navegação
-            </h3>
+            <h3 className="font-bold text-base mb-1">Navegação</h3>
 
             <Link
               to="/#beneficios"
@@ -70,30 +65,20 @@ vidas e abrir portas para novas oportunidades.
             </Link>
           </div>
 
-        {/* Coluna 2 */}
-<div className="flex flex-col gap-3">
-  <h3 className="font-bold text-base mb-1">
-    Termos e Condições
-  </h3>
+          {/* Coluna 2 */}
+          <div className="flex flex-col gap-3">
+            <h3 className="font-bold text-base mb-1">Termos e Condições</h3>
 
-  <span className="text-sm">
-    Termos de uso
-  </span>
+            <span className="text-sm">Termos de uso</span>
 
-  <span className="text-sm">
-    Política de privacidade
-  </span>
-</div>
+            <span className="text-sm">Política de privacidade</span>
+          </div>
 
           {/* Contato */}
           <div className="flex flex-col gap-3">
-            <h3 className="font-bold text-base mb-1">
-              Contato
-            </h3>
+            <h3 className="font-bold text-base mb-1">Contato</h3>
 
-            <span className="text-sm">
-              (81) 9 9576-0789
-            </span>
+            <span className="text-sm">(81) 9 9576-0789</span>
 
             <a
               href="mailto:atendimento@proleduca.com.br"
@@ -102,7 +87,6 @@ vidas e abrir portas para novas oportunidades.
               atendimento@proleduca.com.br
             </a>
           </div>
-
         </div>
       </div>
     </footer>

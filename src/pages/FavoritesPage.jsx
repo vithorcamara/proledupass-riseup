@@ -1,10 +1,10 @@
-import { useAppContext } from '../contexts/AppContext';
+import { useAppContext } from "../contexts/AppContext";
 
 export default function FavoritesPage() {
   const { favorites, opportunities } = useAppContext();
 
-  const favoriteOpportunities = opportunities.filter(opportunity =>
-    favorites.includes(opportunity.id)
+  const favoriteOpportunities = opportunities.filter((opportunity) =>
+    favorites.includes(opportunity.id),
   );
 
   return (
@@ -13,7 +13,9 @@ export default function FavoritesPage() {
       {favoriteOpportunities.length > 0 ? (
         favoriteOpportunities.map((opportunity) => (
           <div key={opportunity.id} className="mb-2">
-            <p>{opportunity.institution} - {opportunity.course}</p>
+            <p>
+              {opportunity.institution} - {opportunity.course}
+            </p>
           </div>
         ))
       ) : (

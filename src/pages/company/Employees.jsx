@@ -40,7 +40,9 @@ export default function Employees() {
     setIsLoading(true);
     setError(null);
     try {
-      const company = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+      const company = localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user"))
+        : null;
       const res = await axiosInstance.get(`/customers/company/${company.id}`);
       setAllUsers(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
@@ -53,43 +55,48 @@ export default function Employees() {
   };
 
   const handleDelete = async (userId) => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        await axiosInstance.delete(`/customers/${userId}`);
-        fetchUsers();
+    setIsLoading(true);
+    setError(null);
+    try {
+      await axiosInstance.delete(`/customers/${userId}`);
+      fetchUsers();
 
-        setMessageModalProps({
+      setMessageModalProps({
         title: "usuário excluído",
         message: "A usuário foi excluído com sucesso.",
         success: true,
       });
       setIsMessageModalOpen(true);
-      } catch (err) {
-        console.error("Erro ao excluir usuário:", err.response?.data || err.message);
+    } catch (err) {
+      console.error(
+        "Erro ao excluir usuário:",
+        err.response?.data || err.message,
+      );
 
-        const apiError = err.response?.data?.message || "Falha ao excluir usuário.";
-        let customMessage = apiError;
+      const apiError =
+        err.response?.data?.message || "Falha ao excluir usuário.";
+      let customMessage = apiError;
 
-        // Verifica se o erro é de chave estrangeira
-        if (
-          apiError.toLowerCase().includes("constraint") ||
-          apiError.toLowerCase().includes("foreign key") ||
-          apiError.toLowerCase().includes("violates") ||
-          apiError.toLowerCase().includes("integrity")
-        ) {
-          customMessage = "Não é possível excluir este usuário pois ele está vinculado a um bolsista. Remova o vínculo antes de tentar novamente.";
-        }
-
-        setMessageModalProps({
-          title: "Erro ao excluir",
-          message: customMessage,
-          success: false,
-        });
-      } finally {
-        setIsMessageModalOpen(true);
-        setIsLoading(false);
+      // Verifica se o erro é de chave estrangeira
+      if (
+        apiError.toLowerCase().includes("constraint") ||
+        apiError.toLowerCase().includes("foreign key") ||
+        apiError.toLowerCase().includes("violates") ||
+        apiError.toLowerCase().includes("integrity")
+      ) {
+        customMessage =
+          "Não é possível excluir este usuário pois ele está vinculado a um bolsista. Remova o vínculo antes de tentar novamente.";
       }
+
+      setMessageModalProps({
+        title: "Erro ao excluir",
+        message: customMessage,
+        success: false,
+      });
+    } finally {
+      setIsMessageModalOpen(true);
+      setIsLoading(false);
+    }
   };
 
   const confirmarAcao = ({ onConfirm, title, message }) => {
@@ -117,7 +124,7 @@ export default function Employees() {
     const lowerSearchTerm = searchTerm.toLowerCase();
     // const searchTermDigits = searchTerm.replace(/\D/g, '');
 
-    const filtered = allUsers.filter(user => {
+    const filtered = allUsers.filter((user) => {
       return user.fullName?.toLowerCase().includes(lowerSearchTerm);
     });
     // console.log("Resultado filtrado:", filtered);
@@ -141,7 +148,10 @@ export default function Employees() {
       </header>
 
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Erro</p>
           <p>{error}</p>
         </div>
@@ -163,12 +173,18 @@ export default function Employees() {
       </div>
 
       <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-        {isLoading && filteredUsers.length === 0 && <p className="p-8 text-center text-gray-500">Carregando usuários...</p>}
+        {isLoading && filteredUsers.length === 0 && (
+          <p className="p-8 text-center text-gray-500">
+            Carregando usuários...
+          </p>
+        )}
         {!isLoading && filteredUsers.length === 0 && !error && (
           <div className="p-8 text-center text-gray-500">
             <NoUsersIcon />
             <h3 className="mt-2 text-lg font-medium text-gray-900">
-              {searchTerm ? "Nenhum usuário encontrado." : "Nenhum usuário cadastrado"}
+              {searchTerm
+                ? "Nenhum usuário encontrado."
+                : "Nenhum usuário cadastrado"}
             </h3>
           </div>
         )}
@@ -187,17 +203,30 @@ export default function Employees() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredUsers.map(user => (
-                  <tr key={user.id} className="hover:bg-gray-50 transition-colors duration-150">
+                {filteredUsers.map((user) => (
+                  <tr
+                    key={user.id}
+                    className="hover:bg-gray-50 transition-colors duration-150"
+                  >
                     <td className="td-admin font-mono text-xs">{user.id}</td>
                     <td className="td-admin font-medium text-gray-900">
                       {user.fullName || user.email || "N/A"}
-                      {user.fullName && user.email && <span className="block text-xs text-gray-500">{user.email}</span>}
+                      {user.fullName && user.email && (
+                        <span className="block text-xs text-gray-500">
+                          {user.email}
+                        </span>
+                      )}
                     </td>
-                    <td className="td-admin hidden md:table-cell">{user.cpf || <span className="italic text-gray-400">N/A</span>}</td>
+                    <td className="td-admin hidden md:table-cell">
+                      {user.cpf || (
+                        <span className="italic text-gray-400">N/A</span>
+                      )}
+                    </td>
                     <td className="td-admin hidden sm:table-cell">
-                      <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                        {user.status ? 'Ativo' : 'Inativo'}
+                      <span
+                        className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                      >
+                        {user.status ? "Ativo" : "Inativo"}
                       </span>
                     </td>
                     {/* <td className="td-admin hidden lg:table-cell">
@@ -230,7 +259,11 @@ export default function Employees() {
             </table>
           </div>
         )}
-        {filteredUsers.length > 0 && <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">Exibindo {filteredUsers.length} de {allUsers.length} usuário(s)</div>}
+        {filteredUsers.length > 0 && (
+          <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">
+            Exibindo {filteredUsers.length} de {allUsers.length} usuário(s)
+          </div>
+        )}
       </div>
       <ConfirmModal
         isOpen={isModalOpen}

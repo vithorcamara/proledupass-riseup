@@ -14,29 +14,28 @@ const BackArrowIcon = ({ className = "w-5 h-5 mr-2" }) => (
   <ArrowLeft className={className} />
 );
 
-
 // const raceColorOptions = ["Parda", "Branca", "Preta", "Amarela", "Indígena", "Não Declarada"];
 
 const formatCpf = (cpf) => {
-  if (!cpf) return '';
-  const cleanCpf = String(cpf).replace(/\D/g, '');
+  if (!cpf) return "";
+  const cleanCpf = String(cpf).replace(/\D/g, "");
   if (cleanCpf.length === 11) {
-    return cleanCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    return cleanCpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   }
   return cpf;
 };
 
 const formatPhone = (phone) => {
-  if (!phone) return '';
-  
-  const cleanPhone = String(phone).replace(/\D/g, '');
+  if (!phone) return "";
+
+  const cleanPhone = String(phone).replace(/\D/g, "");
 
   if (cleanPhone.length === 11) {
     // Celular (com 9 dígitos)
-    return cleanPhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    return cleanPhone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
   } else if (cleanPhone.length === 10) {
     // Telefone fixo (com 8 dígitos)
-    return cleanPhone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    return cleanPhone.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
   }
 
   // Se não tiver 10 ou 11 dígitos, retorna só os números digitados
@@ -122,15 +121,14 @@ export default function ProfilePage() {
       .catch((err) => {
         console.error(
           "Erro ao buscar dados do perfil:",
-          err.response?.data || err.message
+          err.response?.data || err.message,
         );
         setApiError(
-          "Não foi possível carregar os dados do perfil. Tente novamente mais tarde."
+          "Não foi possível carregar os dados do perfil. Tente novamente mais tarde.",
         );
       })
       .finally(() => setIsLoading(false));
   }, [navigate]); // <-- removemos user daqui
-
 
   // Esquema de validação
   const validationSchema = Yup.object().shape({
@@ -142,7 +140,7 @@ export default function ProfilePage() {
       .required("Telefone é obrigatório.")
       .matches(
         /^\(\d{2}\)\s\d{4,5}-\d{4}$|^\d{10,11}$/,
-        "Formato de telefone inválido (ex: (DD) XXXXX-XXXX ou 11999998888)."
+        "Formato de telefone inválido (ex: (DD) XXXXX-XXXX ou 11999998888).",
       ),
     // needs: Yup.boolean(),
     // raceColor: Yup.string().required('Raça/Cor é obrigatória.'),
@@ -169,40 +167,44 @@ export default function ProfilePage() {
         return;
       }
 
-      const response = await axiosInstance.put(`/customers/${storedUser.id}`, payload);
+      const response = await axiosInstance.put(
+        `/customers/${storedUser.id}`,
+        payload,
+      );
 
       if (response.status === 200 || response.status === 204) {
-      // Modal de sucesso
-      setMessageModalProps({
-        title: "Perfil atualizado com sucesso!",
-        message: `Agora seu perfil está atualizado com os novos dados.`,
-        success: true,
-        onClose: () => navigate("/"),
-      });
-      setShouldNavigate(true);
-      setIsMessageModalOpen(true);
+        // Modal de sucesso
+        setMessageModalProps({
+          title: "Perfil atualizado com sucesso!",
+          message: `Agora seu perfil está atualizado com os novos dados.`,
+          success: true,
+          onClose: () => navigate("/"),
+        });
+        setShouldNavigate(true);
+        setIsMessageModalOpen(true);
 
         // alert("Perfil atualizado com sucesso!");
         localStorage.setItem(
           "user",
-          JSON.stringify({ ...storedUser, fullName: values.fullName })
+          JSON.stringify({ ...storedUser, fullName: values.fullName }),
         );
-        
+
         setInitialValues({
           ...initialValues,
           fullName: values.fullName,
           dateOfBirth: values.dateOfBirth,
           phone: values.phone,
         });
-
       } else {
-        console.warn("Resposta recebida, mas com status inesperado:", response.status);
+        console.warn(
+          "Resposta recebida, mas com status inesperado:",
+          response.status,
+        );
       }
-
     } catch (err) {
       console.error(
         "Erro ao atualizar perfil:",
-        err.response?.data || err.message
+        err.response?.data || err.message,
       );
       const errorMessage =
         err.response?.data?.message ||
@@ -214,7 +216,6 @@ export default function ProfilePage() {
       setIsLoading(false);
     }
   };
-
 
   if (isLoading) {
     return (
@@ -230,7 +231,9 @@ export default function ProfilePage() {
     return (
       <div className="p-8 text-center text-red-600 bg-gray-100 min-h-screen">
         <p>Você precisa estar logado para acessar esta página.</p>
-        <Link to="/login" className="text-blue-600 hover:underline mt-4 block">Ir para Login</Link>
+        <Link to="/login" className="text-blue-600 hover:underline mt-4 block">
+          Ir para Login
+        </Link>
       </div>
     );
   }
@@ -251,7 +254,10 @@ export default function ProfilePage() {
       </header>
 
       {apiError && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Erro</p>
           <p>{apiError}</p>
         </div>
@@ -267,22 +273,32 @@ export default function ProfilePage() {
           {({ isSubmitting, errors, touched, values }) => (
             <Form className="space-y-6">
               <fieldset>
-                <legend className="text-lg font-medium text-gray-900 mb-4">Informações Pessoais</legend>
+                <legend className="text-lg font-medium text-gray-900 mb-4">
+                  Informações Pessoais
+                </legend>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                   <div>
-                    <label htmlFor="fullName" className="form-label">Nome Completo</label>
+                    <label htmlFor="fullName" className="form-label">
+                      Nome Completo
+                    </label>
                     <Field
                       id="fullName"
                       type="text"
                       name="fullName"
                       placeholder="Seu nome completo"
-                      className={`form-input ${touched.fullName && errors.fullName ? 'border-red-500' : ''}`}
+                      className={`form-input ${touched.fullName && errors.fullName ? "border-red-500" : ""}`}
                     />
-                    <ErrorMessage name="fullName" component="p" className="text-red-600 text-xs mt-1" />
+                    <ErrorMessage
+                      name="fullName"
+                      component="p"
+                      className="text-red-600 text-xs mt-1"
+                    />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="form-label">E-mail</label>
+                    <label htmlFor="email" className="form-label">
+                      E-mail
+                    </label>
                     <Field
                       id="email"
                       type="email"
@@ -293,7 +309,9 @@ export default function ProfilePage() {
                   </div>
 
                   <div>
-                    <label htmlFor="cpf" className="form-label">CPF</label>
+                    <label htmlFor="cpf" className="form-label">
+                      CPF
+                    </label>
                     <Field
                       id="cpf"
                       type="text"
@@ -305,23 +323,39 @@ export default function ProfilePage() {
                   </div>
 
                   <div>
-                    <label htmlFor="dateOfBirth" className="form-label">Data de Nascimento</label>
+                    <label htmlFor="dateOfBirth" className="form-label">
+                      Data de Nascimento
+                    </label>
                     <Field name="dateOfBirth">
                       {({ field, form }) => (
                         <input
-                          {...field} id="dateOfBirth" maxLength={10} className={`form-input ${ form.touched.dateOfBirth && form.errors.dateOfBirth ? "border-red-500" : ""
+                          {...field}
+                          id="dateOfBirth"
+                          maxLength={10}
+                          className={`form-input ${
+                            form.touched.dateOfBirth && form.errors.dateOfBirth
+                              ? "border-red-500"
+                              : ""
                           }`}
-                          onChange={(e) => { const formatted = formatDate(e.target.value); form.setFieldValue("dateOfBirth", formatted);
+                          onChange={(e) => {
+                            const formatted = formatDate(e.target.value);
+                            form.setFieldValue("dateOfBirth", formatted);
                           }}
                         />
                       )}
                     </Field>
-                    <ErrorMessage name="dateOfBirth" component="p" className="text-red-600 text-xs mt-1" />
+                    <ErrorMessage
+                      name="dateOfBirth"
+                      component="p"
+                      className="text-red-600 text-xs mt-1"
+                    />
                   </div>
                   <Field name="phone">
                     {({ field, form }) => (
                       <div>
-                        <label htmlFor="phone" className="form-label">Telefone</label>
+                        <label htmlFor="phone" className="form-label">
+                          Telefone
+                        </label>
                         <input
                           {...field}
                           id="phone"
@@ -330,12 +364,19 @@ export default function ProfilePage() {
                           value={formatPhone(field.value)} // ✅ sempre exibe formatado
                           onChange={(e) => {
                             // remove tudo que não for número antes de salvar no Formik
-                            const onlyNumbers = e.target.value.replace(/\D/g, '');
+                            const onlyNumbers = e.target.value.replace(
+                              /\D/g,
+                              "",
+                            );
                             form.setFieldValue(field.name, onlyNumbers);
                           }}
-                          className={`form-input ${form.touched.phone && form.errors.phone ? 'border-red-500' : ''}`}
+                          className={`form-input ${form.touched.phone && form.errors.phone ? "border-red-500" : ""}`}
                         />
-                        <ErrorMessage name="phone" component="p" className="text-red-600 text-xs mt-1" />
+                        <ErrorMessage
+                          name="phone"
+                          component="p"
+                          className="text-red-600 text-xs mt-1"
+                        />
                       </div>
                     )}
                   </Field>

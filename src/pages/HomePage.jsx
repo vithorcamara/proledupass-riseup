@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import FiltroCursos from "../components/FiltroCursos";
 import OpportunitiesList from "../components/OpportunitiesList";
@@ -8,10 +8,10 @@ import Footer from "../components/Footer";
 
 function HomePage() {
   const [filters, setFilters] = useState({
-    tab: 'Escola',
-    cidade: '',
-    curso: '',
-    instituicao: '',
+    tab: "Escola",
+    cidade: "",
+    curso: "",
+    instituicao: "",
     bolsa: 80,
     // modalidade: { presencial: true, ead: true }
   });
@@ -35,8 +35,7 @@ function HomePage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="w-full h-[340px] md:h-[670px] lg:h-[472px] bg-cover bg-[url('/assets/banners/banner-proledupass-mobile.jpeg')] lg:bg-[url('/assets/banners/banner-proledupass.jpeg')]">
-      </section>
+      <section className="w-full h-[340px] md:h-[670px] lg:h-[472px] bg-cover bg-[url('/assets/banners/banner-proledupass-mobile.jpeg')] lg:bg-[url('/assets/banners/banner-proledupass.jpeg')]"></section>
       <FiltroCursos onBuscar={handleBuscar} initialFilters={filters} />
       <OpportunitiesList currentFilters={filters} />
       <Steps />

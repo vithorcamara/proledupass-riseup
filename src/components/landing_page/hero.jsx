@@ -4,29 +4,19 @@ export function Hero() {
   return (
     <section className="bg-[#F1F5F9] min-h-screen flex items-center justify-center px-4 py-8">
       <div className="flex flex-col items-center text-center max-w-2xl w-full">
-
-{/* Título */}
-<h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-center">
-  <span className="text-[#30A9DE]">
-    Transforme
-  </span>{" "}
-  
-  <span className="text-slate-800">
-    o futuro dos
-  </span>
-
-  <br />
-
-  <span className="text-slate-800">
-    seus colaboradores hoje
-  </span>
-</h1>
+        {/* Título */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-center">
+          <span className="text-[#30A9DE]">Transforme</span>{" "}
+          <span className="text-slate-800">o futuro dos</span>
+          <br />
+          <span className="text-slate-800">seus colaboradores hoje</span>
+        </h1>
 
         {/* Texto */}
         <p className="text-slate-500 mt-5 max-w-xl text-sm md:text-base leading-relaxed px-2">
-          Com o EduPass, seus colaboradores garantem bolsas de até 80%
-          em instituições privadas, com matrícula gratuita — educação
-          acessível e transformadora.
+          Com o EduPass, seus colaboradores garantem bolsas de até 80% em
+          instituições privadas, com matrícula gratuita — educação acessível e
+          transformadora.
         </p>
 
         {/* Video YouTube */}
