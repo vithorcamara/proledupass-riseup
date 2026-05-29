@@ -28,13 +28,10 @@ import InstitutionForm from "./pages/admin/InstitutionForm.jsx";
 import Courses from "./pages/admin/Courses.jsx";
 import CourseForm from "./pages/admin/CoursesForm.jsx";
 import Users from "./pages/admin/Users.jsx";
-// import UserForm from './pages/admin/UserForm.jsx';
 import ScholarshipHolders from "./pages/admin/ScholarshipHolders.jsx";
 import ScholarshipHolderForm from "./pages/admin/ScholarshipHolderForm.jsx";
 import Registrations from "./pages/admin/Registrations.jsx";
 import RegistrationsDetails from "./pages/admin/RegistrationsDetails.jsx";
-// import Dependents from './pages/admin/Dependents.jsx';
-// import DependentForm from './pages/admin/DependentForm.jsx';
 import ProfilePage from "./pages/ProfilePage.jsx";
 import Companies from "./pages/admin/Companies.jsx";
 import CompaniesForm from "./pages/admin/CompaniesForm.jsx";
@@ -56,16 +53,11 @@ import CompanyAuthorizedUsersForm from "./pages/company/CompanyAuthorizedUsersFo
 import PrivateRoute from "./components/PrivateRoute.jsx";
 
 import { AppProvider } from "./contexts/AppContext.jsx";
-import { OpportunitiesProvider } from "./contexts/OpportunitiesContext.jsx";
 
 import "./index.css";
 
 // Landing Page
-import { About_app } from "./components/landing_page/About-app.jsx";
-import { BenefitInfo } from "./components/landing_page/Benefit-info.jsx";
 import LPLayout from "./components/landing_page/LPLayout.jsx";
-import { ContractBenefit } from "./components/landing_page/ContractBenefit.jsx";
-import { HeaderLP } from "./components/landing_page/HeaderLP.jsx";
 
 const router = createBrowserRouter(
   [
@@ -168,9 +160,7 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AppProvider>
-      <OpportunitiesProvider>
-        <RouterProvider router={router} />
-      </OpportunitiesProvider>
+      <RouterProvider router={router} />
     </AppProvider>
   </StrictMode>,
 );

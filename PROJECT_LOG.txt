@@ -114,3 +114,30 @@ Data: 25 de maio de 2026
 
 ---
 *Log gerado automaticamente pela Gemini CLI Agent*
+
+Data: 28 de maio de 2026
+
+## RESUMO DAS ATIVIDADES
+
+### 1. LIMPEZA E ORGANIZAÇÃO DE ARQUIVOS (DEPRECATED)
+- Identificação de componentes, hooks e assets não utilizados no projeto.
+- Criação do diretório `_deprecated/` para armazenamento seguro de arquivos órfãos.
+- Movimentação dos seguintes itens para `_deprecated/`:
+  - **Componentes:** `Card.jsx`, `LocalInfoCard.jsx`, `LogoEduPass.jsx`, `FormCadastro.jsx`.
+  - **Páginas (Admin):** `Clients.jsx`, `EditalModal.jsx`.
+  - **Hooks:** `useAuth.jsx`, `useInstitution.js`.
+  - **Contexts:** `OpportunitiesContext.jsx`.
+  - **Assets (src):** `Frame.svg`, `logo_header 1.png`, `logo-edupass.png`, `logo-edupass1.png`.
+  - **Assets (public):** `download.ico`, `download.png`, `edupass_logo.svg`, `ficr_icon.svg`, `icon1.png`, `icon2.png`, `icon3.png`, `logo_header.png`, `mockRegister.json`, `vite.svg`, `_default.png`, `_outline-white.png`.
+
+### 2. LIMPEZA DE CÓDIGO MORTO
+- Remoção de imports comentados e não utilizados em `src/main.jsx`.
+- Identificação da dependência `dotenv` como possivelmente desnecessária no frontend (Vite).
+
+## ESTADO ATUAL DO PROJETO
+- Projeto limpo de arquivos órfãos óbvios.
+- Estrutura de arquivos preservada, com itens não utilizados isolados em `_deprecated/`.
+- Estabilidade mantida através de movimentação segura em vez de deleção direta.
+
+---
+*Log gerado automaticamente pela Gemini CLI Agent*
