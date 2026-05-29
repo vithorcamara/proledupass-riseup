@@ -15,31 +15,31 @@ export default function RegisterForm() {
 
   const initialValues = {
     // Dados pessoais
-    name: '',
-    email: '',
-    confirmationEmail: '',
-    password: '',
-    confirmationPassword: '',
-    cpf: '',
-    dateOfBirth: '',
-    phone: '',
+    name: "",
+    email: "",
+    confirmationEmail: "",
+    password: "",
+    confirmationPassword: "",
+    cpf: "",
+    dateOfBirth: "",
+    phone: "",
 
     // Endereço
-    cep: '',
-    logradouro: '',
-    numero: '',
-    complemento: '',
-    bairro: '',
-    cidade: '',
-    estado: '',
+    cep: "",
+    logradouro: "",
+    numero: "",
+    complemento: "",
+    bairro: "",
+    cidade: "",
+    estado: "",
 
     // Empresa
-    empresaId: '',
+    empresaId: "",
     // cnpj: '',
-    cargo: '',
-    setor: '',
-    email_corporativo: '',
-    telefone_comercial: '',
+    cargo: "",
+    setor: "",
+    email_corporativo: "",
+    telefone_comercial: "",
   };
 
   const validateCPF = (cpf) => {
@@ -74,7 +74,9 @@ export default function RegisterForm() {
   const validationSchema = Yup.object().shape({
     // ---------------------- DADOS PESSOAIS ----------------------
     name: Yup.string().required("Nome completo é obrigatório"),
-    email: Yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
+    email: Yup.string()
+      .email("E-mail inválido")
+      .required("E-mail é obrigatório"),
     confirmationEmail: Yup.string()
       .oneOf([Yup.ref("email"), null], "Os e-mails não coincidem")
       .required("Confirmação de e-mail é obrigatória"),
@@ -90,38 +92,38 @@ export default function RegisterForm() {
     dateOfBirth: Yup.string()
       .required("Data de nascimento é obrigatória")
       .test("over-18", "Você deve ter mais de 18 anos.", (value) => {
-      if (!value) return false;
+        if (!value) return false;
 
-      function parseSafeDate(v) {
-        if (typeof v !== "string") return new Date(v);
+        function parseSafeDate(v) {
+          if (typeof v !== "string") return new Date(v);
 
-        const iso = /^\d{4}-\d{2}-\d{2}$/;
-        if (iso.test(v)) {
-          const [y, m, d] = v.split("-").map(Number);
-          return new Date(Date.UTC(y, m - 1, d));
+          const iso = /^\d{4}-\d{2}-\d{2}$/;
+          if (iso.test(v)) {
+            const [y, m, d] = v.split("-").map(Number);
+            return new Date(Date.UTC(y, m - 1, d));
+          }
+
+          const br = /^\d{2}\/\d{2}\/\d{4}$/;
+          if (br.test(v)) {
+            const [d, m, y] = v.split("/").map(Number);
+            return new Date(Date.UTC(y, m - 1, d));
+          }
+
+          return new Date(v);
         }
 
-        const br = /^\d{2}\/\d{2}\/\d{4}$/;
-        if (br.test(v)) {
-          const [d, m, y] = v.split("/").map(Number);
-          return new Date(Date.UTC(y, m - 1, d));
-        }
+        const dob = parseSafeDate(value);
+        if (isNaN(dob.getTime())) return false;
 
-        return new Date(v);
-      }
+        const today = new Date();
+        const minAdultUtc = Date.UTC(
+          today.getUTCFullYear() - 18,
+          today.getUTCMonth(),
+          today.getUTCDate(),
+        );
 
-      const dob = parseSafeDate(value);
-      if (isNaN(dob.getTime())) return false;
-
-      const today = new Date();
-      const minAdultUtc = Date.UTC(
-        today.getUTCFullYear() - 18,
-        today.getUTCMonth(),
-        today.getUTCDate()
-      );
-
-      return dob.getTime() <= minAdultUtc;
-    }),
+        return dob.getTime() <= minAdultUtc;
+      }),
     phone: Yup.string().required("Telefone é obrigatório"),
 
     // ---------------------- ENDEREÇO ----------------------
@@ -137,10 +139,10 @@ export default function RegisterForm() {
       .length(2, "Use a sigla do estado (UF)"),
 
     // ---------------------- DADOS DA EMPRESA ----------------------
-  empresaId: Yup.number()
-    .typeError("Selecione uma empresa")
-    .required("Selecione uma empresa")
-    .moreThan(0, "Selecione uma empresa válida"),
+    empresaId: Yup.number()
+      .typeError("Selecione uma empresa")
+      .required("Selecione uma empresa")
+      .moreThan(0, "Selecione uma empresa válida"),
     // cnpj: Yup.string()
     //   .nullable()
     //   .matches(/^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$/, "CNPJ inválido")
@@ -162,7 +164,7 @@ export default function RegisterForm() {
       password: values.password,
       cpf: values.cpf,
       dateOfBirth: values.dateOfBirth,
-      phone: values.phone.replace(/[^\d]/g, ''), // Remove tudo que não for número
+      phone: values.phone.replace(/[^\d]/g, ""), // Remove tudo que não for número
       status: true,
 
       // Dados de endereço
@@ -180,7 +182,9 @@ export default function RegisterForm() {
       cargo: values.cargo || "",
       setor: values.setor || "",
       email_corporativo: values.email_corporativo || "",
-      telefone_comercial: values.telefone_comercial ? values.telefone_comercial.replace(/[^\d]/g, '') : "",
+      telefone_comercial: values.telefone_comercial
+        ? values.telefone_comercial.replace(/[^\d]/g, "")
+        : "",
     };
 
     axiosInstance
@@ -188,14 +192,20 @@ export default function RegisterForm() {
       .then(() => {
         setSubmitted(true);
 
-        setTimeout(() => navigate("/login", { state: { registrationSuccess: true } }), 3000);
+        setTimeout(
+          () => navigate("/login", { state: { registrationSuccess: true } }),
+          3000,
+        );
       })
       .catch((err) => {
         console.error("Erro ao cadastrar:", err.response?.data || err.message);
-        const errorMessage = err.response?.data?.message || err.response?.data?.error || "Ocorreu um erro ao tentar realizar o cadastro. Verifique os dados ou tente novamente mais tarde.";
+        const errorMessage =
+          err.response?.data?.message ||
+          err.response?.data?.error ||
+          "Ocorreu um erro ao tentar realizar o cadastro. Verifique os dados ou tente novamente mais tarde.";
         if (err.response?.data?.errors) {
           Object.entries(err.response.data.errors).forEach(([key, value]) => {
-            const formikField = key.includes('.') ? key.split('.')[1] : key;
+            const formikField = key.includes(".") ? key.split(".")[1] : key;
             if (initialValues.hasOwnProperty(formikField)) {
               setFieldError(formikField, value);
             }
@@ -204,22 +214,22 @@ export default function RegisterForm() {
         setSubmitError(errorMessage);
       })
       .finally(() => {
-
-        if (typeof setSubmitting === 'function') {
+        if (typeof setSubmitting === "function") {
           setSubmitting(false);
         }
       });
   };
 
   useEffect(() => {
-    axiosInstance.get(`/companies`)
-      .then(res => {
+    axiosInstance
+      .get(`/companies`)
+      .then((res) => {
         setCompanies(res.data);
         // console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Erro ao buscar lista de empresas:", err);
-      })
+      });
   }, []);
 
   return (
@@ -252,12 +262,25 @@ export default function RegisterForm() {
 
           {submitted ? (
             <div className="text-center py-10">
-              <svg className="mx-auto h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="mx-auto h-16 w-16 text-green-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
-              <h3 className="mt-4 text-2xl font-semibold text-green-600">Cadastro Realizado!</h3>
+              <h3 className="mt-4 text-2xl font-semibold text-green-600">
+                Cadastro Realizado!
+              </h3>
               <p className="mt-2 text-gray-600">
-                Você será redirecionado para a página de login em alguns segundos...
+                Você será redirecionado para a página de login em alguns
+                segundos...
               </p>
             </div>
           ) : (
@@ -269,7 +292,10 @@ export default function RegisterForm() {
               {({ isSubmitting, errors, touched }) => (
                 <Form className="space-y-5">
                   {submitError && (
-                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md" role="alert">
+                    <div
+                      className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md"
+                      role="alert"
+                    >
                       <p className="font-bold">Erro no Cadastro</p>
                       <p>{submitError}</p>
                     </div>
@@ -279,60 +305,159 @@ export default function RegisterForm() {
                   <h2 className="text-lg font-semibold mt-4">Dados Pessoais</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     <div>
-                      <label htmlFor="name" className="form-label">Nome Completo*</label>
-                      <Field id="name" name="name" placeholder="Seu nome completo" className={`form-input ${touched.name && errors.name ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="name" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="name" className="form-label">
+                        Nome Completo*
+                      </label>
+                      <Field
+                        id="name"
+                        name="name"
+                        placeholder="Seu nome completo"
+                        className={`form-input ${touched.name && errors.name ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="name"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="cpf" className="form-label">CPF*</label>
-                      <Field id="cpf" name="cpf" placeholder="000.000.000-00" className={`form-input ${touched.cpf && errors.cpf ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="cpf" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="cpf" className="form-label">
+                        CPF*
+                      </label>
+                      <Field
+                        id="cpf"
+                        name="cpf"
+                        placeholder="000.000.000-00"
+                        className={`form-input ${touched.cpf && errors.cpf ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="cpf"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="form-label">E-mail*</label>
-                      <Field id="email" name="email" type="email" placeholder="seuemail@example.com" className={`form-input ${touched.email && errors.email ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="email" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="email" className="form-label">
+                        E-mail*
+                      </label>
+                      <Field
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="seuemail@example.com"
+                        className={`form-input ${touched.email && errors.email ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="confirmationEmail" className="form-label">Confirmar E-mail*</label>
-                      <Field id="confirmationEmail" name="confirmationEmail" type="email" placeholder="Confirme seu e-mail" className={`form-input ${touched.confirmationEmail && errors.confirmationEmail ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="confirmationEmail" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="confirmationEmail" className="form-label">
+                        Confirmar E-mail*
+                      </label>
+                      <Field
+                        id="confirmationEmail"
+                        name="confirmationEmail"
+                        type="email"
+                        placeholder="Confirme seu e-mail"
+                        className={`form-input ${touched.confirmationEmail && errors.confirmationEmail ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="confirmationEmail"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="phone" className="form-label">Telefone*</label>
-                      <Field id="phone" name="phone" placeholder="(00) 90000-0000" className={`form-input ${touched.phone && errors.phone ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="phone" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="phone" className="form-label">
+                        Telefone*
+                      </label>
+                      <Field
+                        id="phone"
+                        name="phone"
+                        placeholder="(00) 90000-0000"
+                        className={`form-input ${touched.phone && errors.phone ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="phone"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="dateOfBirth" className="form-label">Data de Nascimento*</label>
-                        <Field name="dateOfBirth">
-                          {({ field, form }) => (
-                            <input
-                              {...field} id="dateOfBirth" maxLength={10} className={`form-input ${ form.touched.dateOfBirth && form.errors.dateOfBirth ? "border-red-500" : ""
-                              }`}
-                              onChange={(e) => { const formatted = formatDate(e.target.value); form.setFieldValue("dateOfBirth", formatted);
-                              }}
-                            />
-                          )}
-                        </Field>
-                      <ErrorMessage name="dateOfBirth" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="dateOfBirth" className="form-label">
+                        Data de Nascimento*
+                      </label>
+                      <Field name="dateOfBirth">
+                        {({ field, form }) => (
+                          <input
+                            {...field}
+                            id="dateOfBirth"
+                            maxLength={10}
+                            className={`form-input ${
+                              form.touched.dateOfBirth &&
+                              form.errors.dateOfBirth
+                                ? "border-red-500"
+                                : ""
+                            }`}
+                            onChange={(e) => {
+                              const formatted = formatDate(e.target.value);
+                              form.setFieldValue("dateOfBirth", formatted);
+                            }}
+                          />
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="dateOfBirth"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="password" className="form-label">Senha*</label>
-                      <Field id="password" name="password" type="password" placeholder="Mínimo 6 caracteres" className={`form-input ${touched.password && errors.password ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="password" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="password" className="form-label">
+                        Senha*
+                      </label>
+                      <Field
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Mínimo 6 caracteres"
+                        className={`form-input ${touched.password && errors.password ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="confirmationPassword" className="form-label">Confirmar Senha*</label>
-                      <Field id="confirmationPassword" name="confirmationPassword" type="password" placeholder="Repita sua senha" className={`form-input ${touched.confirmationPassword && errors.confirmationPassword ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="confirmationPassword" component="p" className="text-red-600 text-xs mt-1" />
+                      <label
+                        htmlFor="confirmationPassword"
+                        className="form-label"
+                      >
+                        Confirmar Senha*
+                      </label>
+                      <Field
+                        id="confirmationPassword"
+                        name="confirmationPassword"
+                        type="password"
+                        placeholder="Repita sua senha"
+                        className={`form-input ${touched.confirmationPassword && errors.confirmationPassword ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="confirmationPassword"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
                   </div>
 
@@ -340,57 +465,131 @@ export default function RegisterForm() {
                   <h2 className="text-lg font-semibold mt-8">Endereço</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     <div>
-                      <label htmlFor="cep" className="form-label">CEP*</label>
-                      <Field id="cep" name="cep" placeholder="00000-000" className={`form-input ${touched.cep && errors.cep ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="cep" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="cep" className="form-label">
+                        CEP*
+                      </label>
+                      <Field
+                        id="cep"
+                        name="cep"
+                        placeholder="00000-000"
+                        className={`form-input ${touched.cep && errors.cep ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="cep"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="logradouro" className="form-label">Logradouro*</label>
-                      <Field id="logradouro" name="logradouro" placeholder="Rua/Avenida" className={`form-input ${touched.logradouro && errors.logradouro ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="logradouro" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="logradouro" className="form-label">
+                        Logradouro*
+                      </label>
+                      <Field
+                        id="logradouro"
+                        name="logradouro"
+                        placeholder="Rua/Avenida"
+                        className={`form-input ${touched.logradouro && errors.logradouro ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="logradouro"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="numero" className="form-label">Número*</label>
-                      <Field id="numero" name="numero" placeholder="Número da casa" className={`form-input ${touched.numero && errors.numero ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="numero" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="numero" className="form-label">
+                        Número*
+                      </label>
+                      <Field
+                        id="numero"
+                        name="numero"
+                        placeholder="Número da casa"
+                        className={`form-input ${touched.numero && errors.numero ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="numero"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="complemento" className="form-label">Complemento</label>
-                      <Field id="complemento" name="complemento" placeholder="Apto, bloco, etc." className="form-input" />
+                      <label htmlFor="complemento" className="form-label">
+                        Complemento
+                      </label>
+                      <Field
+                        id="complemento"
+                        name="complemento"
+                        placeholder="Apto, bloco, etc."
+                        className="form-input"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="bairro" className="form-label">Bairro*</label>
-                      <Field id="bairro" name="bairro" className={`form-input ${touched.bairro && errors.bairro ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="bairro" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="bairro" className="form-label">
+                        Bairro*
+                      </label>
+                      <Field
+                        id="bairro"
+                        name="bairro"
+                        className={`form-input ${touched.bairro && errors.bairro ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="bairro"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="cidade" className="form-label">Cidade*</label>
-                      <Field id="cidade" name="cidade" className={`form-input ${touched.cidade && errors.cidade ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="cidade" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="cidade" className="form-label">
+                        Cidade*
+                      </label>
+                      <Field
+                        id="cidade"
+                        name="cidade"
+                        className={`form-input ${touched.cidade && errors.cidade ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="cidade"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="estado" className="form-label">Estado (UF)*</label>
-                      <Field id="estado" name="estado" className={`form-input ${touched.estado && errors.estado ? 'border-red-500' : ''}`} />
-                      <ErrorMessage name="estado" component="p" className="text-red-600 text-xs mt-1" />
+                      <label htmlFor="estado" className="form-label">
+                        Estado (UF)*
+                      </label>
+                      <Field
+                        id="estado"
+                        name="estado"
+                        className={`form-input ${touched.estado && errors.estado ? "border-red-500" : ""}`}
+                      />
+                      <ErrorMessage
+                        name="estado"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
                   </div>
 
                   {/* ---------------------- GRUPO 3: DADOS DA EMPRESA ---------------------- */}
-                  <h2 className="text-lg font-semibold mt-8">Dados da Empresa</h2>
+                  <h2 className="text-lg font-semibold mt-8">
+                    Dados da Empresa
+                  </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     <div>
-                      <label htmlFor="empresaId" className="form-label">Selecione sua empresa*</label>
+                      <label htmlFor="empresaId" className="form-label">
+                        Selecione sua empresa*
+                      </label>
                       <Field
                         as="select"
                         name="empresaId"
                         id="empresaId"
-                        className={`form-select ${touched.empresaId && errors.empresaId ? 'border-red-500' : ''}`}
+                        className={`form-select ${touched.empresaId && errors.empresaId ? "border-red-500" : ""}`}
                       >
                         <option value="">Selecione uma empresa</option>
                         {companies.length > 0 &&
@@ -400,9 +599,12 @@ export default function RegisterForm() {
                             </option>
                           ))}
                       </Field>
-                      <ErrorMessage name="empresaId" component="p" className="text-red-600 text-xs mt-1" />
+                      <ErrorMessage
+                        name="empresaId"
+                        component="p"
+                        className="text-red-600 text-xs mt-1"
+                      />
                     </div>
-
 
                     {/* <div>
                       <label htmlFor="cnpj" className="form-label">CNPJ</label>
@@ -410,23 +612,55 @@ export default function RegisterForm() {
                     </div> */}
 
                     <div>
-                      <label htmlFor="cargo" className="form-label">Cargo</label>
-                      <Field id="cargo" name="cargo" placeholder="Seu cargo atual" className="form-input" />
+                      <label htmlFor="cargo" className="form-label">
+                        Cargo
+                      </label>
+                      <Field
+                        id="cargo"
+                        name="cargo"
+                        placeholder="Seu cargo atual"
+                        className="form-input"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="setor" className="form-label">Setor</label>
-                      <Field id="setor" name="setor" placeholder="Departamento" className="form-input" />
+                      <label htmlFor="setor" className="form-label">
+                        Setor
+                      </label>
+                      <Field
+                        id="setor"
+                        name="setor"
+                        placeholder="Departamento"
+                        className="form-input"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="email_corporativo" className="form-label">E-mail Corporativo</label>
-                      <Field id="email_corporativo" name="email_corporativo" type="email" placeholder="email@empresa.com.br" className="form-input" />
+                      <label htmlFor="email_corporativo" className="form-label">
+                        E-mail Corporativo
+                      </label>
+                      <Field
+                        id="email_corporativo"
+                        name="email_corporativo"
+                        type="email"
+                        placeholder="email@empresa.com.br"
+                        className="form-input"
+                      />
                     </div>
 
                     <div>
-                      <label htmlFor="telefone_comercial" className="form-label">Telefone Comercial</label>
-                      <Field id="telefone_comercial" name="telefone_comercial" placeholder="(00) 3000-0000" className="form-input" />
+                      <label
+                        htmlFor="telefone_comercial"
+                        className="form-label"
+                      >
+                        Telefone Comercial
+                      </label>
+                      <Field
+                        id="telefone_comercial"
+                        name="telefone_comercial"
+                        placeholder="(00) 3000-0000"
+                        className="form-input"
+                      />
                     </div>
                   </div>
 

@@ -5,8 +5,8 @@ import { OpportunitySection } from "../components/landing_page/OpportunitySectio
 import { Testimonials } from "../components/landing_page/Testimonials";
 import { HeaderLP } from "../components/landing_page/HeaderLP";
 import { Hero } from "../components/landing_page/hero";
-import { FAQ }  from "../components/landing_page/Faq";
-import { Footer }  from "../components/landing_page/Footer";
+import { FAQ } from "../components/landing_page/Faq";
+import { Footer } from "../components/landing_page/Footer";
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";

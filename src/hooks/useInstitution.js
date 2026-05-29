@@ -1,6 +1,6 @@
 // src/hooks/useInstitution.js
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function useInstitution(institutionName) {
   const [institution, setInstitution] = useState(null);
@@ -10,11 +10,11 @@ export default function useInstitution(institutionName) {
     async function fetchInstitution() {
       try {
         const response = await axios.get(`/api/instituicoes`, {
-          params: { nome_fantasia: institutionName }
+          params: { nome_fantasia: institutionName },
         });
         setInstitution(response.data);
       } catch (error) {
-        console.error('Erro ao buscar instituição:', error);
+        console.error("Erro ao buscar instituição:", error);
       } finally {
         setLoading(false);
       }

@@ -69,7 +69,8 @@ export default function Companies() {
       });
       setIsMessageModalOpen(true);
     } catch (err) {
-      const apiError = err?.response?.data?.message || "Falha ao excluir empresa.";
+      const apiError =
+        err?.response?.data?.message || "Falha ao excluir empresa.";
 
       // Mostra modal de erro diretamente
       setMessageModalProps({
@@ -108,7 +109,7 @@ export default function Companies() {
     const lowerSearchTerm = searchTerm.toLowerCase();
     // const searchTermDigits = searchTerm.replace(/\D/g, '');
 
-    const filtered = allCompanies.filter(company => {
+    const filtered = allCompanies.filter((company) => {
       return company.fantasyName?.toLowerCase().includes(lowerSearchTerm);
     });
     // console.log("Resultado filtrado:", filtered);
@@ -139,7 +140,10 @@ export default function Companies() {
       </header>
 
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Erro</p>
           <p>{error}</p>
         </div>
@@ -161,12 +165,18 @@ export default function Companies() {
       </div>
 
       <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-        {isLoading && filteredCompanies.length === 0 && <p className="p-8 text-center text-gray-500">Carregando empresas...</p>}
+        {isLoading && filteredCompanies.length === 0 && (
+          <p className="p-8 text-center text-gray-500">
+            Carregando empresas...
+          </p>
+        )}
         {!isLoading && filteredCompanies.length === 0 && !error && (
           <div className="p-8 text-center text-gray-500">
             <NoUsersIcon />
             <h3 className="mt-2 text-lg font-medium text-gray-900">
-              {searchTerm ? "Nenhuma empresa encontrada." : "Nenhuma empresa cadastrada"}
+              {searchTerm
+                ? "Nenhuma empresa encontrada."
+                : "Nenhuma empresa cadastrada"}
             </h3>
           </div>
         )}
@@ -184,14 +194,25 @@ export default function Companies() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredCompanies.map(company => (
-                  <tr key={company.id} className="hover:bg-gray-50 transition-colors duration-150">
+                {filteredCompanies.map((company) => (
+                  <tr
+                    key={company.id}
+                    className="hover:bg-gray-50 transition-colors duration-150"
+                  >
                     <td className="td-admin font-mono text-xs">{company.id}</td>
                     <td className="td-admin font-medium text-gray-900">
                       {company.fantasyName || company.email || "N/A"}
-                      {company.fantasyName && company.email && <span className="block text-xs text-gray-500">{company.email}</span>}
+                      {company.fantasyName && company.email && (
+                        <span className="block text-xs text-gray-500">
+                          {company.email}
+                        </span>
+                      )}
                     </td>
-                    <td className="td-admin hidden md:table-cell">{company.cnpj || <span className="italic text-gray-400">N/A</span>}</td>
+                    <td className="td-admin hidden md:table-cell">
+                      {company.cnpj || (
+                        <span className="italic text-gray-400">N/A</span>
+                      )}
+                    </td>
                     {/* <td className="td-admin hidden sm:table-cell">
                       <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                         {user.status ? 'Ativo' : 'Inativo'}
@@ -205,7 +226,9 @@ export default function Companies() {
                     </td> */}
                     <td className="td-admin text-right pr-6 space-x-1 sm:space-x-3 whitespace-nowrap">
                       <button
-                        onClick={() => navigate(`/admin/companies/edit/${company.id}`)}
+                        onClick={() =>
+                          navigate(`/admin/companies/edit/${company.id}`)
+                        }
                         className="p-1.5 text-yellow-600 hover:text-yellow-700 hover:bg-yellow-100 rounded-md transition-colors"
                         title="Editar Empresa"
                         disabled={isLoading} // Ou um loading específico para a ação
@@ -227,7 +250,12 @@ export default function Companies() {
             </table>
           </div>
         )}
-        {filteredCompanies.length > 0 && <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">Exibindo {filteredCompanies.length} de {allCompanies.length} empresa(s)</div>}
+        {filteredCompanies.length > 0 && (
+          <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">
+            Exibindo {filteredCompanies.length} de {allCompanies.length}{" "}
+            empresa(s)
+          </div>
+        )}
       </div>
       <ConfirmModal
         isOpen={isModalOpen}

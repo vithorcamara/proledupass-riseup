@@ -12,7 +12,7 @@ export function useAuth() {
   const logout = () => {
     localStorage.removeItem("token");
     setUserLoggedIn(false);
-    window.location.href = "/"; 
+    window.location.href = "/";
   };
 
   return { userLoggedIn, logout };

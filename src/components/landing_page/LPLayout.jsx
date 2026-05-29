@@ -9,7 +9,6 @@ export default function LPLayout() {
       <main>
         <Outlet />
       </main>
-
     </div>
   );
 }

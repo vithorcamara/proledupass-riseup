@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function AlertModal({ isOpen, onClose, title, message, success = true }) {
+export default function AlertModal({
+  isOpen,
+  onClose,
+  title,
+  message,
+  success = true,
+}) {
   if (!isOpen) return null;
 
   return (
@@ -8,7 +14,9 @@ export default function AlertModal({ isOpen, onClose, title, message, success = 
       <div className="relative bg-white border border-gray-200 rounded-2xl shadow-2xl w-[90%] max-w-md p-6 pointer-events-auto">
         {/* Ícone decorativo */}
         <div className="flex justify-center mb-4">
-          <div className={`p-3 rounded-full ${success ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+          <div
+            className={`p-3 rounded-full ${success ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
+          >
             <svg
               className="w-6 h-6"
               fill="none"
@@ -19,13 +27,19 @@ export default function AlertModal({ isOpen, onClose, title, message, success = 
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d={success ? "M5 13l4 4L19 7" : "M12 9v2m0 4h.01m-.01-12a9 9 0 11-9 9 9 9 0 019-9z"}
+                d={
+                  success
+                    ? "M5 13l4 4L19 7"
+                    : "M12 9v2m0 4h.01m-.01-12a9 9 0 11-9 9 9 9 0 019-9z"
+                }
               />
             </svg>
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-center text-gray-800 mb-2">{title}</h2>
+        <h2 className="text-xl font-bold text-center text-gray-800 mb-2">
+          {title}
+        </h2>
         <p className="text-center text-gray-600 mb-6">{message}</p>
 
         <div className="flex justify-center">

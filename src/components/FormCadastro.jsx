@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function FormCadastro() {
   return (
@@ -13,7 +13,9 @@ export default function FormCadastro() {
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Nome completo</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Nome completo
+            </label>
             <input
               type="text"
               placeholder="Ex: João Pedro Moura"
@@ -22,7 +24,9 @@ export default function FormCadastro() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Data de nascimento</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Data de nascimento
+            </label>
             <input
               type="date"
               className="mt-1 w-full p-2 border rounded bg-gray-100"
@@ -30,7 +34,9 @@ export default function FormCadastro() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">CPF</label>
+            <label className="block text-sm font-medium text-gray-700">
+              CPF
+            </label>
             <input
               type="text"
               placeholder="Ex: 000.000.000-00"
@@ -39,7 +45,9 @@ export default function FormCadastro() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Necessidades especiais</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Necessidades especiais
+            </label>
             <input
               type="text"
               placeholder="Ex: Nenhuma"
@@ -48,7 +56,9 @@ export default function FormCadastro() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Raça</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Raça
+            </label>
             <input
               type="text"
               placeholder="Ex: Parda"
@@ -57,7 +67,9 @@ export default function FormCadastro() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Cor</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Cor
+            </label>
             <input
               type="text"
               placeholder="Ex: Morena clara"

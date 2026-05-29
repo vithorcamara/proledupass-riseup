@@ -1,4 +1,10 @@
-export default function EditModal({ isOpen, onClose, onSave, value, setValue }) {
+export default function EditModal({
+  isOpen,
+  onClose,
+  onSave,
+  value,
+  setValue,
+}) {
   if (!isOpen) return null;
 
   return (
@@ -13,8 +19,15 @@ export default function EditModal({ isOpen, onClose, onSave, value, setValue }) 
         />
 
         <div className="flex justify-end space-x-2">
-          <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
-          <button onClick={onSave} className="px-4 py-2 bg-blue-500 text-white rounded">Salvar</button>
+          <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">
+            Cancelar
+          </button>
+          <button
+            onClick={onSave}
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Salvar
+          </button>
         </div>
       </div>
     </div>

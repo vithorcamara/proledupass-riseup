@@ -11,17 +11,29 @@ export function BenefitInfo() {
             className="w-full h-72 md:h-96 object-cover rounded-2xl shadow-md"
           />
           <div>
-            <h2 className="font-extrabold text-slate-800 mb-6" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>
-              Ah, mas esse <span className="text-[#30A9DE]">Benefício Educacional</span> funciona na minha empresa?
+            <h2
+              className="font-extrabold text-slate-800 mb-6"
+              style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}
+            >
+              Ah, mas esse{" "}
+              <span className="text-[#30A9DE]">Benefício Educacional</span>{" "}
+              funciona na minha empresa?
             </h2>
             <p className="text-slate-600 mb-4">
-                Aqui no Prol Edupass, acreditamos que empresas fortes se constroem com oportunidades.
+              Aqui no Prol Edupass, acreditamos que empresas fortes se constroem
+              com oportunidades.
             </p>
             <p className="text-slate-600 mb-4">
-                Se você quer oferecer educação de qualidade aos seus colaboradores, sem pesar no orçamento, essa é a chance de transformar vidas.
+              Se você quer oferecer educação de qualidade aos seus
+              colaboradores, sem pesar no orçamento, essa é a chance de
+              transformar vidas.
             </p>
             <p className="text-slate-600">
-                O Prol Edupass foi criado para empresas como a sua — que valorizam pessoas e investem no futuro. Com até 80% de desconto e matrícula gratuita, seus colaboradores e seus filhos têm acesso a escolas de qualidade, promovendo gratidão, retenção e impacto social de verdade.
+              O Prol Edupass foi criado para empresas como a sua — que valorizam
+              pessoas e investem no futuro. Com até 80% de desconto e matrícula
+              gratuita, seus colaboradores e seus filhos têm acesso a escolas de
+              qualidade, promovendo gratidão, retenção e impacto social de
+              verdade.
             </p>
           </div>
         </div>

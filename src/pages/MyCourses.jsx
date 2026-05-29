@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
-import OportunityCard from "../components/OpportunitiesList"
+import OportunityCard from "../components/OpportunitiesList";
 
 export default function MyOportunities() {
   const [minhasBolsas, setMinhasBolsas] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/minhas-bolsas")
+    axios
+      .get("/api/minhas-bolsas")
       .then((res) => {
         console.log("Resposta da API:", res.data);
-       
+
         const data = Array.isArray(res.data) ? res.data : res.data.bolsas || [];
         setMinhasBolsas(data);
       })
       .catch((err) => {
         console.error("Erro ao buscar bolsas:", err);
-    
+
         setMinhasBolsas([
           {
             id: 1,

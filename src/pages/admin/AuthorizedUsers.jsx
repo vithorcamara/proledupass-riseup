@@ -43,7 +43,9 @@ export default function Users() {
       setAllUsers(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Erro ao buscar usuários Autorizados:", err);
-      setError("Falha ao carregar usuários Autorizados. Tente novamente mais tarde.");
+      setError(
+        "Falha ao carregar usuários Autorizados. Tente novamente mais tarde.",
+      );
       setAllUsers([]);
     } finally {
       setIsLoading(false);
@@ -64,9 +66,13 @@ export default function Users() {
         success: true,
       });
     } catch (err) {
-      console.error("Erro ao excluir usuário:", err.response?.data || err.message);
+      console.error(
+        "Erro ao excluir usuário:",
+        err.response?.data || err.message,
+      );
 
-      const apiError = err.response?.data?.message || "Falha ao excluir usuário.";
+      const apiError =
+        err.response?.data?.message || "Falha ao excluir usuário.";
       let customMessage = apiError;
 
       // Verifica se o erro é de chave estrangeira
@@ -76,7 +82,8 @@ export default function Users() {
         apiError.toLowerCase().includes("violates") ||
         apiError.toLowerCase().includes("integrity")
       ) {
-        customMessage = "Não é possível excluir este usuário pois ele está vinculado a um bolsista. Remova o vínculo antes de tentar novamente.";
+        customMessage =
+          "Não é possível excluir este usuário pois ele está vinculado a um bolsista. Remova o vínculo antes de tentar novamente.";
       }
 
       setMessageModalProps({
@@ -89,7 +96,6 @@ export default function Users() {
       setIsLoading(false);
     }
   };
-
 
   const confirmarAcao = ({ onConfirm, title, message }) => {
     setModalProps({
@@ -116,7 +122,7 @@ export default function Users() {
     const lowerSearchTerm = searchTerm.toLowerCase();
     // const searchTermDigits = searchTerm.replace(/\D/g, '');
 
-    const filtered = allUsers.filter(user => {
+    const filtered = allUsers.filter((user) => {
       return user.name?.toLowerCase().includes(lowerSearchTerm);
     });
     // console.log("Resultado filtrado:", filtered);
@@ -140,7 +146,10 @@ export default function Users() {
       </header>
 
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Erro</p>
           <p>{error}</p>
         </div>
@@ -168,14 +177,19 @@ export default function Users() {
         </Link>
       </div>
 
-
       <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-        {isLoading && filteredUsers.length === 0 && <p className="p-8 text-center text-gray-500">Carregando usuários...</p>}
+        {isLoading && filteredUsers.length === 0 && (
+          <p className="p-8 text-center text-gray-500">
+            Carregando usuários...
+          </p>
+        )}
         {!isLoading && filteredUsers.length === 0 && !error && (
           <div className="p-8 text-center text-gray-500">
             <NoUsersIcon />
             <h3 className="mt-2 text-lg font-medium text-gray-900">
-              {searchTerm ? "Nenhum usuário encontrado." : "Nenhum usuário cadastrado"}
+              {searchTerm
+                ? "Nenhum usuário encontrado."
+                : "Nenhum usuário cadastrado"}
             </h3>
           </div>
         )}
@@ -195,16 +209,35 @@ export default function Users() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredUsers.map(user => (
-                  <tr key={user.id} className="hover:bg-gray-50 transition-colors duration-150">
+                {filteredUsers.map((user) => (
+                  <tr
+                    key={user.id}
+                    className="hover:bg-gray-50 transition-colors duration-150"
+                  >
                     <td className="td-admin font-mono text-xs">{user.id}</td>
                     <td className="td-admin font-medium text-gray-900">
                       {user.name || user.email || "N/A"}
-                      {user.name && user.email && <span className="block text-xs text-gray-500">{user.email}</span>}
+                      {user.name && user.email && (
+                        <span className="block text-xs text-gray-500">
+                          {user.email}
+                        </span>
+                      )}
                     </td>
-                    <td className="td-admin hidden md:table-cell">{user.phone || <span className="italic text-gray-400">N/A</span>}</td>
-                    <td className="td-admin hidden md:table-cell">{user.cpf || <span className="italic text-gray-400">N/A</span>}</td>
-                    <td className="td-admin hidden md:table-cell">{user.rg || <span className="italic text-gray-400">N/A</span>}</td>
+                    <td className="td-admin hidden md:table-cell">
+                      {user.phone || (
+                        <span className="italic text-gray-400">N/A</span>
+                      )}
+                    </td>
+                    <td className="td-admin hidden md:table-cell">
+                      {user.cpf || (
+                        <span className="italic text-gray-400">N/A</span>
+                      )}
+                    </td>
+                    <td className="td-admin hidden md:table-cell">
+                      {user.rg || (
+                        <span className="italic text-gray-400">N/A</span>
+                      )}
+                    </td>
                     {/* <td className="td-admin hidden lg:table-cell">
                       {user.roles && user.roles.length > 0
                         ? user.roles.map(role => typeof role === 'object' ? role.type : role).join(', ')
@@ -213,7 +246,9 @@ export default function Users() {
                     </td> */}
                     <td className="td-admin text-right pr-6 space-x-1 sm:space-x-3 whitespace-nowrap">
                       <button
-                        onClick={() => navigate(`/admin/AuthorizedUsers/edit/${user.id}`)} // Descomente se UserForm.jsx existir
+                        onClick={() =>
+                          navigate(`/admin/AuthorizedUsers/edit/${user.id}`)
+                        } // Descomente se UserForm.jsx existir
                         className="p-1.5 text-yellow-600 hover:text-yellow-700 hover:bg-yellow-100 rounded-md transition-colors"
                         title="Editar Usuário"
                         disabled={isLoading} // Ou um loading específico para a ação
@@ -235,7 +270,12 @@ export default function Users() {
             </table>
           </div>
         )}
-        {filteredUsers.length > 0 && <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">Exibindo {filteredUsers.length} de {allUsers.length} usuário(s) Autorizado(s)</div>}
+        {filteredUsers.length > 0 && (
+          <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">
+            Exibindo {filteredUsers.length} de {allUsers.length} usuário(s)
+            Autorizado(s)
+          </div>
+        )}
       </div>
       <ConfirmModal
         isOpen={isModalOpen}

@@ -1,4 +1,3 @@
-
 import {
   BookOpen,
   Lock,
@@ -52,7 +51,10 @@ export function OpportunitySection() {
     <div className="bg-slate-100 px-16 pt-16 pb-16">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <h2 className="text-3xl font-extrabold text-center mb-12" style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}>
+        <h2
+          className="text-3xl font-extrabold text-center mb-12"
+          style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+        >
           <span className="text-slate-800">
             Ao ser contemplados, seus colaboradores{" "}
           </span>

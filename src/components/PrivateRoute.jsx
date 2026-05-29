@@ -1,5 +1,5 @@
 // src/components/PrivateRoute.jsx
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 export default function PrivateRoute({ redirectTo = "portal/login", roles = [] }) {
   const token = localStorage.getItem('token');
@@ -14,7 +14,9 @@ export default function PrivateRoute({ redirectTo = "portal/login", roles = [] }
   if (roles.length > 0) {
     const userRoles = user.roles || [];
 
-    const hasRequiredRole = roles.some(requiredRole => userRoles.includes(requiredRole));
+    const hasRequiredRole = roles.some((requiredRole) =>
+      userRoles.includes(requiredRole),
+    );
 
     if (!hasRequiredRole) {
       alert("Você não tem permissão para acessar esta página.");

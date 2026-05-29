@@ -5,61 +5,56 @@ import axiosInstance from "../../api/axiosInstance";
 import ConfirmModal from "../../components/ConfirmModal";
 import MessageModal from "../../components/MessageModal";
 
-
-import { CheckCircle, XCircle, Clock, Archive, Trash2, Eye } from "lucide-react";
+import {
+  CheckCircle,
+  XCircle,
+  Clock,
+  Archive,
+  Trash2,
+  Eye,
+} from "lucide-react";
 
 const CheckCircleIcon = () => (
   <CheckCircle className="w-5 h-5 text-green-600" />
 );
-const XCircleIcon = () => (
-  <XCircle className="w-5 h-5 text-red-600" />
-);
-const ClockIcon = () => (
-  <Clock className="w-5 h-5 text-yellow-500" />
-);
-const ArchiveBoxIcon = () => (
-  <Archive className="w-5 h-5 text-gray-500" />
-);
-const TrashIcon = () => (
-  <Trash2 className="w-4 h-4" />
-);
-const EyeIcon = () => (
-  <Eye className="w-4 h-4" />
-);
-
+const XCircleIcon = () => <XCircle className="w-5 h-5 text-red-600" />;
+const ClockIcon = () => <Clock className="w-5 h-5 text-yellow-500" />;
+const ArchiveBoxIcon = () => <Archive className="w-5 h-5 text-gray-500" />;
+const TrashIcon = () => <Trash2 className="w-4 h-4" />;
+const EyeIcon = () => <Eye className="w-4 h-4" />;
 
 const StatusBar = ({ status }) => {
-  let progressColor = 'bg-gray-400';
-  let bgColor = 'bg-gray-200';
-  let textColor = 'text-gray-700';
-  let widthPercent = '0%';
+  let progressColor = "bg-gray-400";
+  let bgColor = "bg-gray-200";
+  let textColor = "text-gray-700";
+  let widthPercent = "0%";
   let IconComponent = ArchiveBoxIcon;
   let statusLabel = status || "Desconhecido";
 
   if (status) {
     const lowerStatus = status.toLowerCase();
-    if (lowerStatus === 'matriculado') {
-      progressColor = 'bg-green-500';
-      textColor = 'text-green-700';
-      widthPercent = '100%';
+    if (lowerStatus === "matriculado") {
+      progressColor = "bg-green-500";
+      textColor = "text-green-700";
+      widthPercent = "100%";
       IconComponent = CheckCircleIcon;
       statusLabel = "Matriculado";
-    } else if (lowerStatus === 'pendente') {
-      progressColor = 'bg-yellow-400';
-      textColor = 'text-yellow-700';
-      widthPercent = '50%';
+    } else if (lowerStatus === "pendente") {
+      progressColor = "bg-yellow-400";
+      textColor = "text-yellow-700";
+      widthPercent = "50%";
       IconComponent = ClockIcon;
       statusLabel = "Pendente";
-    } else if (lowerStatus === 'cancelado') {
-      progressColor = 'bg-red-500';
-      textColor = 'text-red-700';
-      widthPercent = '100%';
+    } else if (lowerStatus === "cancelado") {
+      progressColor = "bg-red-500";
+      textColor = "text-red-700";
+      widthPercent = "100%";
       IconComponent = XCircleIcon;
       statusLabel = "Cancelado";
-    } else if (lowerStatus === 'concluido') {
-      progressColor = 'bg-green-500';
-      textColor = 'text-green-700';
-      widthPercent = '100%';
+    } else if (lowerStatus === "concluido") {
+      progressColor = "bg-green-500";
+      textColor = "text-green-700";
+      widthPercent = "100%";
       IconComponent = CheckCircleIcon;
       statusLabel = "Concluído";
     }
@@ -76,7 +71,9 @@ const StatusBar = ({ status }) => {
     <div className="flex flex-col items-start w-full">
       <div className="flex items-center mb-1">
         <IconComponent />
-        <span className={`ml-2 text-sm font-medium ${textColor}`}>{statusLabel}</span>
+        <span className={`ml-2 text-sm font-medium ${textColor}`}>
+          {statusLabel}
+        </span>
       </div>
       <div className={`h-2 w-full rounded-full ${bgColor} overflow-hidden`}>
         <div
@@ -87,7 +84,6 @@ const StatusBar = ({ status }) => {
     </div>
   );
 };
-
 
 export default function CompanyRegistrations() {
   const [inscriptions, setInscriptions] = useState([]);
@@ -112,7 +108,7 @@ export default function CompanyRegistrations() {
     { id: 1, status: "Pendente" },
     { id: 2, status: "Contemplado" },
     { id: 3, status: "Concluido" },
-    { id: 4, status: "Cancelado" }
+    { id: 4, status: "Cancelado" },
   ];
 
   useEffect(() => {
@@ -125,7 +121,9 @@ export default function CompanyRegistrations() {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const companyId = user ? user.id : null;
-      const res = await axiosInstance.get(`/registrations/company/${companyId}`);
+      const res = await axiosInstance.get(
+        `/registrations/company/${companyId}`,
+      );
       setInscriptions(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Erro ao buscar inscrições:", err);
@@ -139,7 +137,9 @@ export default function CompanyRegistrations() {
   const handleStatusChange = async (inscriptionId, newStatus) => {
     const originalInscriptions = [...inscriptions];
 
-    const inscriptionToUpdate = originalInscriptions.find(insc => insc.id === inscriptionId);
+    const inscriptionToUpdate = originalInscriptions.find(
+      (insc) => insc.id === inscriptionId,
+    );
 
     if (!inscriptionToUpdate) {
       // console.error("Admin/Inscriptions: Inscrição não encontrada no estado para atualização. ID:", inscriptionId);
@@ -149,47 +149,64 @@ export default function CompanyRegistrations() {
 
     // console.log("Admin/Inscriptions: Dados da inscrição original:", JSON.stringify(inscriptionToUpdate, null, 2));
 
-    setInscriptions(prevInscriptions =>
-      prevInscriptions.map(insc =>
-        insc.id === inscriptionId ? { ...insc, status: newStatus, _isUpdating: true } : insc
-      )
+    setInscriptions((prevInscriptions) =>
+      prevInscriptions.map((insc) =>
+        insc.id === inscriptionId
+          ? { ...insc, status: newStatus, _isUpdating: true }
+          : insc,
+      ),
     );
 
     try {
-
       const payload = {
         statusId: newStatus,
         scholarshipHolderId: inscriptionToUpdate.scholarshipHolders?.id,
         courseId: inscriptionToUpdate.courses?.id,
-        registrationDate: inscriptionToUpdate.registrationDate
+        registrationDate: inscriptionToUpdate.registrationDate,
       };
 
-      if (payload.scholarshipHolderId === undefined || payload.scholarshipHolderId === null) {
-        throw new Error(`ID do Bolsista (scholarshipHolderId) é nulo ou indefinido para a inscrição ${inscriptionId}.`);
+      if (
+        payload.scholarshipHolderId === undefined ||
+        payload.scholarshipHolderId === null
+      ) {
+        throw new Error(
+          `ID do Bolsista (scholarshipHolderId) é nulo ou indefinido para a inscrição ${inscriptionId}.`,
+        );
       }
       if (payload.courseId === undefined || payload.courseId === null) {
-        throw new Error(`ID do Curso (courseId) é nulo ou indefinido para a inscrição ${inscriptionId}.`);
+        throw new Error(
+          `ID do Curso (courseId) é nulo ou indefinido para a inscrição ${inscriptionId}.`,
+        );
       }
       if (!payload.registrationDate) {
-        throw new Error(`Data de Registro (registrationDate) está faltando para a inscrição ${inscriptionId}.`);
+        throw new Error(
+          `Data de Registro (registrationDate) está faltando para a inscrição ${inscriptionId}.`,
+        );
       }
 
       // console.log("Admin/Inscriptions: Atualizando inscrição ID:", inscriptionId, "Payload para PUT:", payload);
       await axiosInstance.put(`/registrations/${inscriptionId}`, payload);
 
-      setInscriptions(prevInscriptions =>
-        prevInscriptions.map(insc =>
-          insc.id === inscriptionId ?
-            {
-              ...inscriptionToUpdate,
-              status: allStatus.find(item => item.id == newStatus),
-              _isUpdating: false
-            } : insc
-        )
+      setInscriptions((prevInscriptions) =>
+        prevInscriptions.map((insc) =>
+          insc.id === inscriptionId
+            ? {
+                ...inscriptionToUpdate,
+                status: allStatus.find((item) => item.id == newStatus),
+                _isUpdating: false,
+              }
+            : insc,
+        ),
       );
     } catch (err) {
-      console.error("Admin/Inscriptions: Erro ao atualizar status:", err.response?.data || err.message);
-      const apiError = err.response?.data?.message || err.message || "Falha ao atualizar status da inscrição.";
+      console.error(
+        "Admin/Inscriptions: Erro ao atualizar status:",
+        err.response?.data || err.message,
+      );
+      const apiError =
+        err.response?.data?.message ||
+        err.message ||
+        "Falha ao atualizar status da inscrição.";
       setError(apiError);
       alert(apiError);
       setInscriptions(originalInscriptions);
@@ -197,29 +214,33 @@ export default function CompanyRegistrations() {
   };
 
   const handleDeleteInscription = async (inscriptionId) => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        await axiosInstance.delete(`/registrations/${inscriptionId}`);
-        fetchInscriptions();
+    setIsLoading(true);
+    setError(null);
+    try {
+      await axiosInstance.delete(`/registrations/${inscriptionId}`);
+      fetchInscriptions();
 
-        setMessageModalProps({
+      setMessageModalProps({
         title: "inscrição excluída",
         message: "A inscrição foi excluída com sucesso.",
         success: true,
       });
       setIsMessageModalOpen(true);
-      } catch (err) {
-        console.error("Erro ao excluir inscrição:", err.response?.data || err.message);
-        const apiError = err.response?.data?.message || "Falha ao excluir inscrição.";
-        setMessageModalProps({
+    } catch (err) {
+      console.error(
+        "Erro ao excluir inscrição:",
+        err.response?.data || err.message,
+      );
+      const apiError =
+        err.response?.data?.message || "Falha ao excluir inscrição.";
+      setMessageModalProps({
         title: "Erro ao excluir",
         message: apiError,
         success: false,
       });
-      } finally {
-        setIsLoading(false);
-      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const confirmarAcao = ({ onConfirm, title, message }) => {
@@ -240,16 +261,20 @@ export default function CompanyRegistrations() {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
+    if (!dateString) return "N/A";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
-      const parts = dateString.split('-');
+      const parts = dateString.split("-");
       if (parts.length === 3 && parts[0].length === 4) {
         return `${parts[2]}/${parts[1]}/${parts[0]}`;
       }
       return dateString;
     }
-    return date.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    return date.toLocaleDateString("pt-BR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
   };
 
   return (
@@ -261,18 +286,39 @@ export default function CompanyRegistrations() {
       </header>
 
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Erro</p>
           <p>{error}</p>
         </div>
       )}
 
       <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-        {isLoading && inscriptions.length === 0 && <p className="p-8 text-center text-gray-500">Carregando inscrições...</p>}
+        {isLoading && inscriptions.length === 0 && (
+          <p className="p-8 text-center text-gray-500">
+            Carregando inscrições...
+          </p>
+        )}
         {!isLoading && inscriptions.length === 0 && !error && (
           <div className="p-8 text-center text-gray-500">
-            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-            <h3 className="mt-2 text-lg font-medium text-gray-900">Nenhuma inscrição encontrada</h3>
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <h3 className="mt-2 text-lg font-medium text-gray-900">
+              Nenhuma inscrição encontrada
+            </h3>
           </div>
         )}
 
@@ -283,32 +329,60 @@ export default function CompanyRegistrations() {
                 <tr>
                   <th className="th-admin">ID</th>
                   <th className="th-admin">Bolsista</th>
-                  <th className="th-admin hidden sm:table-cell">CPF Bolsista</th>
+                  <th className="th-admin hidden sm:table-cell">
+                    CPF Bolsista
+                  </th>
                   <th className="th-admin hidden md:table-cell">Curso</th>
                   <th className="th-admin hidden lg:table-cell">Instituição</th>
-                  <th className="th-admin hidden xl:table-cell">Data Cadastro</th>
+                  <th className="th-admin hidden xl:table-cell">
+                    Data Cadastro
+                  </th>
                   {/* <th className="th-admin px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Status Atual</th> */}
                   <th className="th-admin text-center">Status Anual</th>
                   <th className="th-admin text-right pr-6">Ações</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {inscriptions.map(insc => (
-                  <tr key={insc.id} className={`hover:bg-gray-50 transition-colors duration-150 ${insc._isUpdating ? 'opacity-50 pointer-events-none' : ''}`}>
+                {inscriptions.map((insc) => (
+                  <tr
+                    key={insc.id}
+                    className={`hover:bg-gray-50 transition-colors duration-150 ${insc._isUpdating ? "opacity-50 pointer-events-none" : ""}`}
+                  >
                     <td className="td-admin font-mono text-xs">
-                      <Link to={`/company/registrations/${insc.id}`} className="text-blue-600 hover:text-blue-800 hover:underline">
+                      <Link
+                        to={`/company/registrations/${insc.id}`}
+                        className="text-blue-600 hover:text-blue-800 hover:underline"
+                      >
                         {insc.id}
                       </Link>
                     </td>
                     <td className="td-admin font-medium text-gray-900 truncate max-w-xs">
-                      <Link to={`/company/registrations/${insc.id}`} className="hover:underline" title={insc.scholarshipHolders?.fullName}>
+                      <Link
+                        to={`/company/registrations/${insc.id}`}
+                        className="hover:underline"
+                        title={insc.scholarshipHolders?.fullName}
+                      >
                         {insc.scholarshipHolders?.fullName || "N/A"}
                       </Link>
                     </td>
-                    <td className="td-admin hidden sm:table-cell">{insc.scholarshipHolders?.cpf || "N/A"}</td>
-                    <td className="td-admin hidden md:table-cell truncate max-w-xs" title={insc.courses?.name}>{insc.courses?.name || "N/A"}</td>
-                    <td className="td-admin hidden lg:table-cell truncate max-w-xs" title={insc.courses?.institutions?.name}>{insc.courses?.institutions?.name || "N/A"}</td>
-                    <td className="td-admin hidden xl:table-cell">{formatDate(insc.registrationDate)}</td>
+                    <td className="td-admin hidden sm:table-cell">
+                      {insc.scholarshipHolders?.cpf || "N/A"}
+                    </td>
+                    <td
+                      className="td-admin hidden md:table-cell truncate max-w-xs"
+                      title={insc.courses?.name}
+                    >
+                      {insc.courses?.name || "N/A"}
+                    </td>
+                    <td
+                      className="td-admin hidden lg:table-cell truncate max-w-xs"
+                      title={insc.courses?.institutions?.name}
+                    >
+                      {insc.courses?.institutions?.name || "N/A"}
+                    </td>
+                    <td className="td-admin hidden xl:table-cell">
+                      {formatDate(insc.registrationDate)}
+                    </td>
                     <td className="td-admin px-6 py-4 whitespace-nowrap">
                       <StatusBar status={insc.status.status} />
                     </td>
@@ -327,7 +401,9 @@ export default function CompanyRegistrations() {
                     </td> */}
                     <td className="td-admin text-right pr-6 space-x-1 sm:space-x-3 whitespace-nowrap">
                       <button
-                        onClick={() => navigate(`/company/registrations/${insc.id}`)}
+                        onClick={() =>
+                          navigate(`/company/registrations/${insc.id}`)
+                        }
                         className="p-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-100 rounded-md transition-colors"
                         title="Ver Detalhes"
                       >
@@ -348,16 +424,40 @@ export default function CompanyRegistrations() {
             </table>
           </div>
         )}
-        {inscriptions.length > 0 && <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">Total de inscrições: {inscriptions.length}</div>}
+        {inscriptions.length > 0 && (
+          <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">
+            Total de inscrições: {inscriptions.length}
+          </div>
+        )}
       </div>
       {inscriptions.length > 0 && (
         <div className="p-4 bg-white rounded-xl shadow-xl mt-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Resumo financeiro do seu plano</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">
+            Resumo financeiro do seu plano
+          </h2>
           <p className="text-gray-700">
-            Total de contemplado: <span className="font-medium">{inscriptions.filter(inscription => inscription.status?.id === 2).length}</span>
+            Total de contemplado:{" "}
+            <span className="font-medium">
+              {
+                inscriptions.filter(
+                  (inscription) => inscription.status?.id === 2,
+                ).length
+              }
+            </span>
           </p>
           <p className="text-gray-700">
-            Valor total: <span className="font-bold text-green-700">R$ {(inscriptions.filter(inscription => inscription.status?.id === 2).length * 20).toFixed(2).replace('.', ',')}</span> reais por mês
+            Valor total:{" "}
+            <span className="font-bold text-green-700">
+              R${" "}
+              {(
+                inscriptions.filter(
+                  (inscription) => inscription.status?.id === 2,
+                ).length * 20
+              )
+                .toFixed(2)
+                .replace(".", ",")}
+            </span>{" "}
+            reais por mês
           </p>
         </div>
       )}

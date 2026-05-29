@@ -16,7 +16,7 @@ function FilterableSelect({ options, value, onChange, placeholder }) {
   const wrapperRef = useRef(null);
 
   const filteredOptions = options.filter((opt) =>
-    opt.toLowerCase().includes(search.toLowerCase())
+    opt.toLowerCase().includes(search.toLowerCase()),
   );
 
   useEffect(() => {
@@ -53,7 +53,9 @@ function FilterableSelect({ options, value, onChange, placeholder }) {
       {isOpen && (
         <ul className="absolute z-10 bg-white border border-gray-200 rounded-lg mt-1 w-full max-h-48 overflow-auto shadow-lg">
           {filteredOptions.length === 0 ? (
-            <li className="px-3 py-2 text-gray-500 text-sm">Nenhum resultado</li>
+            <li className="px-3 py-2 text-gray-500 text-sm">
+              Nenhum resultado
+            </li>
           ) : (
             filteredOptions.map((opt) => (
               <li
@@ -145,8 +147,12 @@ export default function Institutions() {
       });
       setIsMessageModalOpen(true);
     } catch (err) {
-      console.error("Erro ao excluir instituição:", err.response?.data || err.message);
-      const apiError = err.response?.data?.message || `Falha ao excluir instituição.`;
+      console.error(
+        "Erro ao excluir instituição:",
+        err.response?.data || err.message,
+      );
+      const apiError =
+        err.response?.data?.message || `Falha ao excluir instituição.`;
       setMessageModalProps({
         title: "Erro ao excluir",
         message: apiError,
@@ -203,11 +209,19 @@ export default function Institutions() {
 
   // opções para selects
   const availableNames = [
-    ...new Set(institutions.map((i) => (i.nomeFantasia || i.name || "")).filter(Boolean)),
+    ...new Set(
+      institutions.map((i) => i.nomeFantasia || i.name || "").filter(Boolean),
+    ),
   ];
-  const availableTypes = [...new Set(institutions.map((i) => i.type).filter(Boolean))];
+  const availableTypes = [
+    ...new Set(institutions.map((i) => i.type).filter(Boolean)),
+  ];
   const availableCities = [
-    ...new Set(institutions.map((i) => `${i.city || ""}/${i.state || ""}`).filter(Boolean)),
+    ...new Set(
+      institutions
+        .map((i) => `${i.city || ""}/${i.state || ""}`)
+        .filter(Boolean),
+    ),
   ];
 
   const visibleInstitutions = filteredInstitutions
@@ -297,11 +311,15 @@ export default function Institutions() {
       {/* Tabela */}
       <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
         {isLoading && institutions.length === 0 && (
-          <p className="p-8 text-center text-gray-500">Carregando instituições...</p>
+          <p className="p-8 text-center text-gray-500">
+            Carregando instituições...
+          </p>
         )}
 
         {!isLoading && visibleInstitutions.length === 0 && !error && (
-          <div className="p-8 text-center text-gray-500">Nenhuma instituição encontrada</div>
+          <div className="p-8 text-center text-gray-500">
+            Nenhuma instituição encontrada
+          </div>
         )}
 
         {visibleInstitutions.length > 0 && (
@@ -310,7 +328,9 @@ export default function Institutions() {
               <thead className="bg-gray-50 text-gray-700 font-semibold">
                 <tr>
                   <th className="px-6 py-3">Nome Fantasia</th>
-                  <th className="px-6 py-3 hidden md:table-cell">Responsável</th>
+                  <th className="px-6 py-3 hidden md:table-cell">
+                    Responsável
+                  </th>
                   <th className="px-6 py-3 hidden sm:table-cell">Email</th>
                   <th className="px-6 py-3 hidden lg:table-cell">CNPJ</th>
                   <th className="px-6 py-3 hidden sm:table-cell">Cidade/UF</th>
@@ -320,13 +340,19 @@ export default function Institutions() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {visibleInstitutions.map((inst) => (
-                  <tr key={inst.id} className="hover:bg-gray-50 transition-colors duration-150">
+                  <tr
+                    key={inst.id}
+                    className="hover:bg-gray-50 transition-colors duration-150"
+                  >
                     <td className="px-6 py-4 font-medium text-gray-900">
                       {inst.nomeFantasia || inst.name || "—"}
                     </td>
 
                     <td className="px-6 py-4 hidden md:table-cell text-gray-700">
-                      {inst.respNome || inst.nameResponsible || inst.responsavel || "—"}
+                      {inst.respNome ||
+                        inst.nameResponsible ||
+                        inst.responsavel ||
+                        "—"}
                     </td>
 
                     <td className="px-6 py-4 hidden sm:table-cell text-gray-700">
@@ -338,13 +364,16 @@ export default function Institutions() {
                     </td>
 
                     <td className="px-6 py-4 hidden sm:table-cell text-gray-700">
-                      {(inst.city || "—") + (inst.state ? ` / ${inst.state}` : "")}
+                      {(inst.city || "—") +
+                        (inst.state ? ` / ${inst.state}` : "")}
                     </td>
 
                     <td className="px-6 py-4 text-center">
                       <span
                         className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          inst.status ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                          inst.status
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
                         }`}
                       >
                         {inst.status ? "Ativa" : "Inativa"}
@@ -354,7 +383,9 @@ export default function Institutions() {
                     <td className="px-6 py-4 text-center">
                       <div className="flex items-center justify-center gap-2">
                         <button
-                          onClick={() => navigate(`/admin/institutions/edit/${inst.id}`)}
+                          onClick={() =>
+                            navigate(`/admin/institutions/edit/${inst.id}`)
+                          }
                           className="p-2 rounded-lg bg-yellow-50 hover:bg-yellow-100 text-yellow-600 transition"
                           title="Editar"
                           disabled={isLoading}
@@ -380,7 +411,8 @@ export default function Institutions() {
 
         {visibleInstitutions.length > 0 && (
           <div className="p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-500">
-            Exibindo {visibleInstitutions.length} de {institutions.length} instituições
+            Exibindo {visibleInstitutions.length} de {institutions.length}{" "}
+            instituições
           </div>
         )}
       </div>

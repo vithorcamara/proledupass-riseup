@@ -18,29 +18,47 @@ export default function Support() {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     // Você pode usar `values` diretamente — é o objeto com os dados do formulário
-    if (!values.fullName.trim() || !values.email.trim() || !values.subject.trim() || !values.description.trim()) {
-      setStatus({ category: "danger", message: "Por favor, preencha todos os campos para enviar." });
+    if (
+      !values.fullName.trim() ||
+      !values.email.trim() ||
+      !values.subject.trim() ||
+      !values.description.trim()
+    ) {
+      setStatus({
+        category: "danger",
+        message: "Por favor, preencha todos os campos para enviar.",
+      });
       setSubmitting(false);
       return;
     }
 
     setStatus({
       category: "infor",
-      message: "Enviando solicitação..."
+      message: "Enviando solicitação...",
     });
 
     try {
       const response = await axiosInstance.post("/support", values);
 
       if (response.status === 200) {
-        setStatus({ category: "success", message: "Sua solicitação foi enviada com sucesso! Responderemos em breve." });
+        setStatus({
+          category: "success",
+          message:
+            "Sua solicitação foi enviada com sucesso! Responderemos em breve.",
+        });
         resetForm();
       } else {
-        setStatus({ category: "danger", message: "Ocorreu um erro ao enviar. Tente novamente mais tarde." });
+        setStatus({
+          category: "danger",
+          message: "Ocorreu um erro ao enviar. Tente novamente mais tarde.",
+        });
       }
     } catch (error) {
       console.error("Erro ao enviar suporte:", error);
-      setStatus({ category: "danger", message: "Ocorreu um erro ao enviar. Tente novamente mais tarde." });
+      setStatus({
+        category: "danger",
+        message: "Ocorreu um erro ao enviar. Tente novamente mais tarde.",
+      });
     } finally {
       setSubmitting(false);
     }
@@ -50,17 +68,21 @@ export default function Support() {
     <div className="bg-white">
       <section className="bg-[#30ADE7] py-12 text-center text-white">
         <h1 className="text-4xl md:text-5xl font-bold mb-3">Suporte</h1>
-        <p className="text-lg md:text-xl">Precisa de ajuda? Fale com a gente!</p>
+        <p className="text-lg md:text-xl">
+          Precisa de ajuda? Fale com a gente!
+        </p>
       </section>
 
       <main className="max-w-3xl mx-auto px-8 py-12">
-
         {status.category && (
           <div
-            className={`p-3 mb-6 text-sm rounded-lg text-center ${status.category == "success"
-              ? "bg-green-50 text-green-700 border border-green-300"
-              : (status.category == "danger" ? "bg-red-50 text-red-700 border border-red-300" : "bg-blue-50 text-blue-700 border border-blue-300")
-              }`}
+            className={`p-3 mb-6 text-sm rounded-lg text-center ${
+              status.category == "success"
+                ? "bg-green-50 text-green-700 border border-green-300"
+                : status.category == "danger"
+                  ? "bg-red-50 text-red-700 border border-red-300"
+                  : "bg-blue-50 text-blue-700 border border-blue-300"
+            }`}
             role="alert"
           >
             {status.message}
@@ -82,72 +104,104 @@ export default function Support() {
             <Form className="space-y-6">
               {/* Nome completo */}
               <div>
-                <label htmlFor="fullName" className="form-label">Nome completo</label>
+                <label htmlFor="fullName" className="form-label">
+                  Nome completo
+                </label>
                 <Field
                   id="fullName"
                   name="fullName"
-                  className={`form-input ${touched.fullName && errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`form-input ${touched.fullName && errors.fullName ? "border-red-500" : "border-gray-300"}`}
                   placeholder="Seu nome completo"
                 />
-                <ErrorMessage name="fullName" component="p" className="text-red-600 text-xs mt-1" />
+                <ErrorMessage
+                  name="fullName"
+                  component="p"
+                  className="text-red-600 text-xs mt-1"
+                />
               </div>
 
               {/* E-mail */}
               <div>
-                <label htmlFor="email" className="form-label">E-mail</label>
+                <label htmlFor="email" className="form-label">
+                  E-mail
+                </label>
                 <Field
                   id="email"
                   type="email"
                   name="email"
-                  className={`form-input ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`form-input ${touched.email && errors.email ? "border-red-500" : "border-gray-300"}`}
                   placeholder="seuemail@example.com"
                 />
-                <ErrorMessage name="email" component="p" className="text-red-600 text-xs mt-1" />
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-red-600 text-xs mt-1"
+                />
               </div>
 
               {/* Tipo da solicitação */}
               <div>
-                <label htmlFor="requestType" className="form-label">Tipo da solicitação</label>
+                <label htmlFor="requestType" className="form-label">
+                  Tipo da solicitação
+                </label>
                 <Field
                   as="select"
                   id="requestType"
                   name="requestType"
-                  className={`form-input ${touched.requestType && errors.requestType ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`form-input ${touched.requestType && errors.requestType ? "border-red-500" : "border-gray-300"}`}
                 >
                   <option value="">Selecione uma opção</option>
                   <option value="Problema técnico">Problema técnico</option>
                   <option value="Dúvida">Dúvida</option>
-                  <option value="Solicitação de acesso">Solicitação de acesso</option>
+                  <option value="Solicitação de acesso">
+                    Solicitação de acesso
+                  </option>
                   <option value="Erro no sistema">Erro no sistema</option>
                   <option value="Outros">Outros</option>
                 </Field>
-                <ErrorMessage name="requestType" component="p" className="text-red-600 text-xs mt-1" />
+                <ErrorMessage
+                  name="requestType"
+                  component="p"
+                  className="text-red-600 text-xs mt-1"
+                />
               </div>
 
               {/* Assunto */}
               <div>
-                <label htmlFor="subject" className="form-label">Assunto</label>
+                <label htmlFor="subject" className="form-label">
+                  Assunto
+                </label>
                 <Field
                   id="subject"
                   name="subject"
-                  className={`form-input ${touched.subject && errors.subject ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`form-input ${touched.subject && errors.subject ? "border-red-500" : "border-gray-300"}`}
                   placeholder="Resumo da solicitação"
                 />
-                <ErrorMessage name="subject" component="p" className="text-red-600 text-xs mt-1" />
+                <ErrorMessage
+                  name="subject"
+                  component="p"
+                  className="text-red-600 text-xs mt-1"
+                />
               </div>
 
               {/* Descrição detalhada */}
               <div>
-                <label htmlFor="description" className="form-label">Descrição detalhada</label>
+                <label htmlFor="description" className="form-label">
+                  Descrição detalhada
+                </label>
                 <Field
                   as="textarea"
                   id="description"
                   name="description"
                   rows="4"
-                  className={`form-input ${touched.description && errors.description ? 'border-red-500' : 'border-gray-300'}`}
+                  className={`form-input ${touched.description && errors.description ? "border-red-500" : "border-gray-300"}`}
                   placeholder="Explique seu problema ou dúvida com detalhes..."
                 />
-                <ErrorMessage name="description" component="p" className="text-red-600 text-xs mt-1" />
+                <ErrorMessage
+                  name="description"
+                  component="p"
+                  className="text-red-600 text-xs mt-1"
+                />
               </div>
 
               {/* Botão de envio */}
@@ -227,7 +281,6 @@ export default function Support() {
             Enviar Solicitação
           </button>
         </form> */}
-
       </main>
 
       <Footer />

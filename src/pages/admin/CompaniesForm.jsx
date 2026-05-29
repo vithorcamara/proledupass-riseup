@@ -10,15 +10,12 @@ const initialFormState = {
   cnpj: "",
   phoneNumber: "",
   email: "",
-  password: ""
+  password: "",
 };
 
 import { ArrowLeft } from "lucide-react";
 
-const BackArrowIcon = () => (
-  <ArrowLeft className="w-5 h-5 mr-2" />
-);
-
+const BackArrowIcon = () => <ArrowLeft className="w-5 h-5 mr-2" />;
 
 export default function CompaniesForm() {
   const [formData, setFormData] = useState(initialFormState);
@@ -27,7 +24,7 @@ export default function CompaniesForm() {
   const [error, setError] = useState(null);
   const [cepError, setCepError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [onConfirmCallback, setOnConfirmCallback] = useState(() => () => { });
+  const [onConfirmCallback, setOnConfirmCallback] = useState(() => () => {});
   const [modalProps, setModalProps] = useState({
     title: "Tem certeza?",
     message: "Você deseja realmente continuar?",
@@ -55,14 +52,24 @@ export default function CompaniesForm() {
   useEffect(() => {
     if (companyId) {
       setIsLoading(true);
-      axiosInstance.get(`/companies/${companyId}`)
-        .then(res => {
+      axiosInstance
+        .get(`/companies/${companyId}`)
+        .then((res) => {
           const { id, ...institutionData } = res.data;
-          setFormData({ ...initialFormState, ...institutionData, status: typeof institutionData.status === 'boolean' ? institutionData.status : true });
+          setFormData({
+            ...initialFormState,
+            ...institutionData,
+            status:
+              typeof institutionData.status === "boolean"
+                ? institutionData.status
+                : true,
+          });
         })
-        .catch(err => {
+        .catch((err) => {
           console.error("Erro ao buscar dados da empresa para edição:", err);
-          setError("Não foi possível carregar os dados da empresa para edição.");
+          setError(
+            "Não foi possível carregar os dados da empresa para edição.",
+          );
         })
         .finally(() => setIsLoading(false));
     } else {
@@ -74,7 +81,7 @@ export default function CompaniesForm() {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -159,10 +166,15 @@ export default function CompaniesForm() {
       });
       setShouldNavigate(true);
       setIsMessageModalOpen(true);
-
     } catch (err) {
-      console.error(`Erro ao ${companyId ? 'atualizar' : 'criar'} empresa:`, err.response?.data || err.message);
-      const apiError = err.response?.data?.message || err.response?.data?.error || `Falha ao ${companyId ? 'atualizar' : 'criar'} empresa.`;
+      console.error(
+        `Erro ao ${companyId ? "atualizar" : "criar"} empresa:`,
+        err.response?.data || err.message,
+      );
+      const apiError =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        `Falha ao ${companyId ? "atualizar" : "criar"} empresa.`;
 
       // Modal de erro
       setMessageModalProps({
@@ -178,9 +190,10 @@ export default function CompaniesForm() {
     }
   };
 
-
   if (isLoading && companyId) {
-    return <div className="p-8 text-center">Carregando dados da empresa...</div>;
+    return (
+      <div className="p-8 text-center">Carregando dados da empresa...</div>
+    );
   }
 
   return (
@@ -199,38 +212,79 @@ export default function CompaniesForm() {
       </header>
 
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Erro na Operação</p>
-          <p>{typeof error === 'object' ? JSON.stringify(error) : error}</p>
+          <p>{typeof error === "object" ? JSON.stringify(error) : error}</p>
         </div>
       )}
       {cepError && (
-        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded-md shadow" role="alert">
+        <div
+          className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded-md shadow"
+          role="alert"
+        >
           <p className="font-bold">Aviso CEP</p>
           <p>{cepError}</p>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-6 bg-white rounded-xl shadow-xl">
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 bg-white rounded-xl shadow-xl"
+      >
         {/* Informações da Empresa */}
         <fieldset className="mb-8">
-          <legend className="text-lg font-medium text-gray-900 mb-3">Informações Principais</legend>
+          <legend className="text-lg font-medium text-gray-900 mb-3">
+            Informações Principais
+          </legend>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 border-t border-gray-200 pt-4">
             {/* <div>
               <label htmlFor="cep" className="form-label">Nome da Empresa*{isFetchingCep ? '(Buscando...)' : ''}</label>
               <input type="text" name="cep" id="cep" value={formData.cep} onChange={handleInputChange} onBlur={handleCepBlur} placeholder="00000-000" maxLength="9" className="form-input" />
             </div> */}
             <div className="lg:col-span-2">
-              <label htmlFor="fantasyName" className="form-label">Nome da Empresa*</label>
-              <input type="text" name="fantasyName" id="fantasyName" value={formData.fantasyName} placeholder="Nome fantasia da empresa" onChange={handleInputChange} className="form-input" />
+              <label htmlFor="fantasyName" className="form-label">
+                Nome da Empresa*
+              </label>
+              <input
+                type="text"
+                name="fantasyName"
+                id="fantasyName"
+                value={formData.fantasyName}
+                placeholder="Nome fantasia da empresa"
+                onChange={handleInputChange}
+                className="form-input"
+              />
             </div>
             <div>
-              <label htmlFor="cnpj" className="form-label">CNPJ*</label>
-              <input type="text" name="cnpj" id="cnpj" value={formData.cnpj} onChange={handleInputChange} placeholder="00.000.000/0000-00" className="form-input" />
+              <label htmlFor="cnpj" className="form-label">
+                CNPJ*
+              </label>
+              <input
+                type="text"
+                name="cnpj"
+                id="cnpj"
+                value={formData.cnpj}
+                onChange={handleInputChange}
+                placeholder="00.000.000/0000-00"
+                className="form-input"
+              />
             </div>
             <div>
-              <label htmlFor="phoneNumber" className="form-label">Telefone*</label>
-              <input type="text" name="phoneNumber" id="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} placeholder="(DD) XXXXX-XXXX" className="form-input" />
+              <label htmlFor="phoneNumber" className="form-label">
+                Telefone*
+              </label>
+              <input
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+                placeholder="(DD) XXXXX-XXXX"
+                className="form-input"
+              />
             </div>
             {/* <div>
               <label htmlFor="neighborhood" className="form-label">Bairro*</label>
@@ -253,11 +307,24 @@ export default function CompaniesForm() {
 
         {/* Informações de acesso */}
         <fieldset className="mb-8">
-          <legend className="text-lg font-medium text-gray-900 mb-3">Informações de Acesso</legend>
+          <legend className="text-lg font-medium text-gray-900 mb-3">
+            Informações de Acesso
+          </legend>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 border-t border-gray-200 pt-4">
             <div className="lg:col-span-1">
-              <label htmlFor="email" className="form-label">E-mail de acesso*</label>
-              <input type="text" name="email" id="email" value={formData.email} placeholder="E-mail de acesso a plataforma" onChange={handleInputChange} required className="form-input" />
+              <label htmlFor="email" className="form-label">
+                E-mail de acesso*
+              </label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={formData.email}
+                placeholder="E-mail de acesso a plataforma"
+                onChange={handleInputChange}
+                required
+                className="form-input"
+              />
             </div>
             {/* <div>
               <label htmlFor="type" className="form-label">Tipo*</label>
@@ -269,8 +336,20 @@ export default function CompaniesForm() {
               </select>
             </div> */}
             <div className="lg:col-span-1">
-              <label htmlFor="password" className="form-label">Senha*</label>
-              <input type="password" name="password" id="password" value={formData.password} onChange={handleInputChange} placeholder={companyId ? "Deixe em branco para manter" : "Senha de acesso"} className="form-input" />
+              <label htmlFor="password" className="form-label">
+                Senha*
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder={
+                  companyId ? "Deixe em branco para manter" : "Senha de acesso"
+                }
+                className="form-input"
+              />
             </div>
             {/* <div className="flex items-center pt-5 self-end">
               <input type="checkbox" name="status" id="status" checked={formData.status} onChange={handleInputChange} className="form-checkbox h-5 w-5 text-blue-600" />
@@ -326,11 +405,23 @@ export default function CompaniesForm() {
 
         {/* Botões */}
         <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-end sm:space-x-3 space-y-3 sm:space-y-0">
-          <Link to="/admin/companies" type="button" className="btn btn-secondary w-full sm:w-auto text-center">
+          <Link
+            to="/admin/companies"
+            type="button"
+            className="btn btn-secondary w-full sm:w-auto text-center"
+          >
             Cancelar
           </Link>
-          <button type="submit" className="btn btn-primary w-full sm:w-auto" disabled={isLoading || isFetchingCep}>
-            {isLoading ? "Salvando..." : (companyId ? "Salvar Alterações" : "Adicionar Empresa")}
+          <button
+            type="submit"
+            className="btn btn-primary w-full sm:w-auto"
+            disabled={isLoading || isFetchingCep}
+          >
+            {isLoading
+              ? "Salvando..."
+              : companyId
+                ? "Salvar Alterações"
+                : "Adicionar Empresa"}
           </button>
         </div>
       </form>
@@ -354,4 +445,3 @@ export default function CompaniesForm() {
     </div>
   );
 }
-

@@ -109,9 +109,9 @@ export default function Benefits() {
             Oportunidades que transformam vidas
           </h2>
           <p className="text-lg text-slate-700 leading-relaxed">
-            Com o <strong>Prol EduPass</strong>, colaboradores têm acesso a bolsas
-            com condições exclusivas. Mais que um benefício, um caminho seguro
-            para crescimento pessoal, profissional e familiar.
+            Com o <strong>Prol EduPass</strong>, colaboradores têm acesso a
+            bolsas com condições exclusivas. Mais que um benefício, um caminho
+            seguro para crescimento pessoal, profissional e familiar.
           </p>
         </section>
 
@@ -150,9 +150,9 @@ export default function Benefits() {
             Educação acessível desde o início
           </h2>
           <p className="text-slate-700 text-lg leading-relaxed">
-            Além dos descontos, o Prol EduPass garante isenção da taxa de matrícula,
-            promovendo economia desde o primeiro passo. Investir em conhecimento
-            nunca foi tão simples e acessível.
+            Além dos descontos, o Prol EduPass garante isenção da taxa de
+            matrícula, promovendo economia desde o primeiro passo. Investir em
+            conhecimento nunca foi tão simples e acessível.
           </p>
         </section>
       </main>
