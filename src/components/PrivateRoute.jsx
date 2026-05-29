@@ -1,7 +1,7 @@
 // src/components/PrivateRoute.jsx
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-export default function PrivateRoute({ redirectTo = "/login", roles = [] }) {
+export default function PrivateRoute({ redirectTo = "portal/login", roles = [] }) {
   const token = localStorage.getItem('token');
   const userString = localStorage.getItem('user');
   const user = userString ? JSON.parse(userString) : null;

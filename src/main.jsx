@@ -97,7 +97,7 @@ const router = createBrowserRouter(
       ],
     },
     {
-      element: <PrivateRoute roles={["ROLE_ADMIN"]} redirectTo="/login" />,
+      element: <PrivateRoute redirectTo="portal/login" />,
       children: [
         {
           path: "/admin",
@@ -137,7 +137,7 @@ const router = createBrowserRouter(
       ],
     },
     {
-      element: <PrivateRoute roles={["ROLE_COMPANY"]} redirectTo="/login" />,
+      element: <PrivateRoute roles={["ROLE_COMPANY"]} redirectTo="portal/login" />,
       children: [
         {
           path: "/company",

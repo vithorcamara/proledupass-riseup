@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../public/assets/logos/default.png";
 
 import { User, UserCheck, Briefcase, Users, LogOut } from "lucide-react";
+import { getAuth, signOut } from "firebase/auth";
 
 const UserIcon = () => (
   <User className="w-5 h-5 text-slate-600 group-hover:text-blue-600" />
@@ -43,6 +44,16 @@ export default function Header({ userLoggedIn, setUserLoggedIn }) {
     setUserLoggedIn(false);
     setIsDropdownOpen(false);
     setIsMobileMenuOpen(false);
+
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+
     navigate("/portal/login");
   };
 
@@ -132,7 +143,7 @@ export default function Header({ userLoggedIn, setUserLoggedIn }) {
                     )}
                     <div className="py-1">
                       <Link
-                        to="/perfil"
+                        to="/portal/perfil"
                         onClick={() => setIsDropdownOpen(false)}
                         className="group flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-100 hover:text-blue-600 w-full transition-colors "
                         role="menuitem"
