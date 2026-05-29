@@ -11,6 +11,34 @@ import { Bold, Eye, EyeOff } from "lucide-react";
 import { useModal } from "../hooks/useModal";
 import { ModalDialog } from "../components/ModalDialog";
 
+// ------------------------------------ FIREBASE ------------------------------------------
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
+// TODO: Replace the following with your app's Firebase project configuration
+// See: https://firebase.google.com/docs/web/learn-more#config-object
+const firebaseConfig = {
+  apiKey: "AIzaSyB0v4eDS32GnEcg2dQgxUMtGWOPSoryhbk",
+  authDomain: "proledupass-riseup.firebaseapp.com",
+  projectId: "proledupass-riseup",
+  storageBucket: "proledupass-riseup.firebasestorage.app",
+  messagingSenderId: "97715703551",
+  appId: "1:97715703551:web:f4aee25e10f0f3cb2d06ca",
+  measurementId: "G-61QVT19NG6",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+
+// ------------------------------------ FIREBASE ------------------------------------------
+
 const EdupassLogo = ({
   className = "w-auto h-10",
   textColor = "text-white",
@@ -40,42 +68,68 @@ export default function Login() {
 
   const handleLogin = async (values, { setSubmitting, setFieldError }) => {
     setMessage("");
-    try {
-      const response = await axiosInstance.post("/edupass/login", values);
-      if (response.status === 200 && response.data?.accessToken) {
-        const { accessToken, userId, roles = [] } = response.data;
-        localStorage.setItem("token", accessToken);
-        const userToStore = { email: values.email, id: userId, roles };
+
+    const auth = getAuth();
+    const email = values.email;
+    const password = values.password;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("token", user.accessToken);
+        const userToStore = { email: values.email, id: user.uid, roles: [] };
         localStorage.setItem("user", JSON.stringify(userToStore));
+
         setUserLoggedIn(true);
         setMessage("Login realizado com sucesso! Redirecionando...");
 
-        setTimeout(() => {
-          if (roles.includes("ROLE_ADMIN")) {
-            navigate("/admin/dashboard");
-          } else if (roles.includes("ROLE_COMPANY")) {
-            navigate("/company/dashboard");
-          } else {
-            navigate("/portal");
-          }
-        }, 1500);
-      } else {
+        navigate("/portal");
+      })
+      .catch((error) => {
+        console.error("Erro no login:", error.response?.data || error.message);
         const apiMessage =
-          response.data?.message ||
-          response.data?.error ||
-          "E-mail ou senha inválidos.";
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Erro ao conectar com o servidor.";
         setMessage(apiMessage);
         setSubmitting(false);
-      }
-    } catch (error) {
-      console.error("Erro no login:", error.response?.data || error.message);
-      const apiMessage =
-        error.response?.data?.message ||
-        error.response?.data?.error ||
-        "Erro ao conectar com o servidor.";
-      setMessage(apiMessage);
-      setSubmitting(false);
-    }
+      });
+    // try {
+    //   const response = await axiosInstance.post("/edupass/login", values);
+    //   if (response.status === 200 && response.data?.accessToken) {
+    //     const { accessToken, userId, roles = [] } = response.data;
+    //     localStorage.setItem("token", accessToken);
+    //     const userToStore = { email: values.email, id: userId, roles };
+    //     localStorage.setItem("user", JSON.stringify(userToStore));
+    //     setUserLoggedIn(true);
+    //     setMessage("Login realizado com sucesso! Redirecionando...");
+
+    //     setTimeout(() => {
+    //       if (roles.includes("ROLE_ADMIN")) {
+    //         navigate("/admin/dashboard");
+    //       } else if (roles.includes("ROLE_COMPANY")) {
+    //         navigate("/company/dashboard");
+    //       } else {
+    //         navigate("/portal");
+    //       }
+    //     }, 1500);
+    //   } else {
+    //     const apiMessage =
+    //       response.data?.message ||
+    //       response.data?.error ||
+    //       "E-mail ou senha inválidos.";
+    //     setMessage(apiMessage);
+    //     setSubmitting(false);
+    //   }
+    // } catch (error) {
+    //   console.error("Erro no login:", error.response?.data || error.message);
+    //   const apiMessage =
+    //     error.response?.data?.message ||
+    //     error.response?.data?.error ||
+    //     "Erro ao conectar com o servidor.";
+    //   setMessage(apiMessage);
+    //   setSubmitting(false);
+    // }
   };
 
   return (
