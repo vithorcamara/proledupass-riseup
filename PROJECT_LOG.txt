@@ -140,4 +140,20 @@ Data: 28 de maio de 2026
 - Estabilidade mantida através de movimentação segura em vez de deleção direta.
 
 ---
+Data: 29 de maio de 2026
+
+## RESUMO DAS ATIVIDADES
+
+### 1. REFATORAÇÃO E ESTILIZAÇÃO DO OPPORTUNITYCARD
+- Atualização do componente `OpportunityCard.jsx` para utilizar o prefixo de rota `/portal/bolsa/`, garantindo a consistência com a nova estrutura de sub-rotas.
+- Simplificação da estrutura de props e do layout do card para um design mais limpo e moderno, removendo elementos como logos e turnos para focar no CTA e nos valores da bolsa.
+- Implementação de micro-ajustes visuais com Tailwind CSS, incluindo sombras suaves e transições de hover mais responsivas.
+
+### 2. SINCRONIZAÇÃO DA LISTA DE OPORTUNIDADES
+- Ajuste no mapeamento de dados em `OpportunitiesList.jsx` para fornecer os dados formatados conforme a nova interface do card.
+
+## ESTADO ATUAL DO PROJETO
+- Navegação entre a listagem pública/portal e os detalhes das bolsas totalmente funcional.
+- Interface de cards de cursos padronizada e otimizada para conversão.
+---
 *Log gerado automaticamente pela Gemini CLI Agent*

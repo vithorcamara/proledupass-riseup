@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import axiosInstance from "../api/axiosInstance";
 
+const normalizarTipo = (value) =>
+  String(value || "")
+    .replace(/\u00c3\u0192\u00c2\u00a9/g, "e")
+    .replace(/\u00c3\u0192\u00c2\u00b3/g, "o")
+    .replace(/\u00c3\u00a9/g, "e")
+    .replace(/\u00c3\u00b3/g, "o")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
 export default function FiltroCurso({ onBuscar, initialFilters }) {
   const [curso, setCurso] = useState(initialFilters.curso || "");
   const [cursosOptions, setCursosOptions] = useState([]);
@@ -20,7 +31,7 @@ export default function FiltroCurso({ onBuscar, initialFilters }) {
   const [tab, setTab] = useState(initialFilters.tab || "Escola");
 
   const [allData, setAllData] = useState([]);
-  const tabs = ["Escola", "Técnico", "Idiomas", "Superior", "Pós"];
+  const tabs = ["Escola", "T\u00e9cnico", "Idiomas", "Superior", "P\u00f3s"];
 
   const FilterableSelect = ({ options, value, onChange, placeholder }) => {
     const [search, setSearch] = useState("");
@@ -123,7 +134,7 @@ export default function FiltroCurso({ onBuscar, initialFilters }) {
       .then((response) => {
         const datas = response.data;
         const ativos = datas.filter(
-          (item) => item?.institutions?.status === true,
+          (item) => item?.institution?.status === true,
         );
         setAllData(ativos);
         atualizarOpcoes(ativos, { tab });
@@ -139,21 +150,22 @@ export default function FiltroCurso({ onBuscar, initialFilters }) {
     if (!datas || datas.length === 0) return;
     const filtrados = datas.filter(
       (item) =>
-        item?.institutions?.status === true &&
-        item.institutions.type === filtros.tab &&
+        item?.institution?.status === true &&
+        normalizarTipo(item.institution.type) === normalizarTipo(filtros.tab) &&
         (!filtros.curso || item.name === filtros.curso) &&
         (!filtros.instituicao ||
-          item.institutions.name === filtros.instituicao) &&
-        (!filtros.cidade || item.institutions.city === filtros.cidade) &&
-        (!filtros.anoBolsa || item.scholarshipYear === filtros.anoBolsa),
+          item.institution.name === filtros.instituicao) &&
+        (!filtros.cidade || item.institution.city === filtros.cidade) &&
+        (!filtros.anoBolsa ||
+          item.scholarshipYear.toString() === filtros.anoBolsa.toString()),
     );
 
     const cursos = [...new Set(filtrados.map((i) => i.name).filter(Boolean))];
     const instituicoes = [
-      ...new Set(filtrados.map((i) => i.institutions.name).filter(Boolean)),
+      ...new Set(filtrados.map((i) => i.institution.name).filter(Boolean)),
     ];
     const cidades = [
-      ...new Set(filtrados.map((i) => i.institutions.city).filter(Boolean)),
+      ...new Set(filtrados.map((i) => i.institution.city).filter(Boolean)),
     ];
     const anos = [
       ...new Set(filtrados.map((i) => i.scholarshipYear).filter(Boolean)),
@@ -252,7 +264,7 @@ export default function FiltroCurso({ onBuscar, initialFilters }) {
       <div className="flex flex-wrap gap-y-6 gap-x-6">
         <div className="flex items-center gap-2 flex-wrap min-w-[250px]">
           <span className="text-sm font-bold text-slate-700 mr-1 sm:mr-2 whitespace-nowrap">
-            Desconto até
+            Desconto
           </span>
           {[30, 50, 80].map((percent) => (
             <button
@@ -282,3 +294,5 @@ export default function FiltroCurso({ onBuscar, initialFilters }) {
     </div>
   );
 }
+
+

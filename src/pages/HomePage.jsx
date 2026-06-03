@@ -12,7 +12,7 @@ function HomePage() {
     cidade: "",
     curso: "",
     instituicao: "",
-    bolsa: 80,
+    bolsa: 0,
     // modalidade: { presencial: true, ead: true }
   });
 

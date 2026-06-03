@@ -50,22 +50,20 @@ export default function BolsaPage() {
 
   const handleInscricaoClick = () => {
     if (!user) {
-      navigate("/login", { state: { from: `/bolsa/${id}` } });
+      navigate("/portal/login", { state: { from: `/portal/bolsa/${id}` } });
     } else {
-      navigate(`/inscricao/${id}`);
+      navigate(`/portal/inscricao/${id}`);
     }
   };
 
-  if (loading)
-    if (error)
-      if (!opportunity)
-        if (loading) {
-          return (
-            <div className="min-h-[calc(100vh-128px)] flex justify-center items-center bg-slate-50">
-              <LoadingSpinner size="h-12 w-12" />
-            </div>
-          );
-        }
+  if (loading) {
+    return (
+      <div className="min-h-[calc(100vh-128px)] flex justify-center items-center bg-slate-50">
+        <LoadingSpinner size="h-12 w-12" />
+      </div>
+    );
+  }
+
   if (error) {
     return (
       <div className="min-h-[calc(100vh-128px)] flex flex-col justify-center items-center bg-slate-50 p-6 text-center">
@@ -89,7 +87,7 @@ export default function BolsaPage() {
     );
   }
 
-  const institution = opportunity.institutions || {};
+  const institution = opportunity.institutions || opportunity.institution || {};
   const locationString =
     [institution.city, institution.state].filter(Boolean).join(", ") ||
     "Localização não informada";
@@ -117,8 +115,8 @@ export default function BolsaPage() {
             <div className="aspect-w-16 aspect-h-9 bg-slate-100 rounded-xl shadow-lg overflow-hidden mb-6">
               <img
                 src={
-                  institution.urlImage ||
                   opportunity.imageUrl ||
+                  institution.urlImage ||
                   "https://via.placeholder.com/800x450/E2E8F0/94A3B8?text=Curso"
                 }
                 alt={`Imagem do curso ${opportunity.name}`}
